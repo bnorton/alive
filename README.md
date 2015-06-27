@@ -5,6 +5,7 @@ A Deployable Service™ that runs scheduled assertions on fetched HTTP content.
 #Direct Usage
 
 - Fork bnorton/alive from GitHub to {{username}}
+- Rename all instances of `{{username}}` with yours
 
 ```bash
 git clone git@github.com:{{username}}/alive.git
