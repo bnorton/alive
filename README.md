@@ -19,6 +19,7 @@ heroku create {{username}}-alive
 ```bash
 heroku config # and grab your mongodb url
 heroku config:set MONGODB_URL={{mongodb url}}
+heroku config:set SECRET_KEY_BASE=$(rake secret)
 ```
 
 - Deploy your first version with `git push heroku master`
