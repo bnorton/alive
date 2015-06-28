@@ -12,7 +12,7 @@ describe Request do
   let(:run) { described_class.run(test) }
 
   describe '.run' do
-    let(:breed) { %w(get head options delete).sample }
+    let(:breed) { %w(get head delete).sample }
 
     before do
       allow(Typhoeus::Request).to receive(:new).and_return(request)
