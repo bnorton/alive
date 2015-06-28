@@ -26,8 +26,6 @@ end
 
 (change_driver = ->(name) { Capybara.current_driver = Capybara.javascript_driver = name }).(:poltergeist)
 
-Mongo::Logger.level = 4
-
 unless /RubyMine/ === ENV['RUBYLIB']
   Rails.logger.level = Mongoid.logger.level = 4
 end
