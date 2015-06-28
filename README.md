@@ -18,7 +18,9 @@ heroku create {{username}}-alive
 
 ```bash
 heroku config # and grab your mongodb url
+heroku config:set RAILS_ENV=production RACK_ENV=production
 heroku config:set MONGODB_URL={{mongodb url}}
+heroku config:set REDIS_URL={{redis url}}
 heroku config:set SECRET_KEY_BASE=$(rake secret)
 ```
 
