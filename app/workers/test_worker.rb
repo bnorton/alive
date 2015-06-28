@@ -1,4 +1,6 @@
 class TestWorker < Worker
+  worker :queue => :exigent
+
   def perform(test_id)
     test = Test.find(test_id)
 

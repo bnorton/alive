@@ -6,6 +6,8 @@ describe TestWorker do
 
   let(:perform) { subject.perform(test) }
 
+  it { expect(described_class.sidekiq_options['queue']).to eq(:exigent) }
+
   describe '#perform' do
     it 'should create a test run' do
       expect {
