@@ -23,8 +23,7 @@ end
 (change_driver = ->(name) { Capybara.current_driver = Capybara.javascript_driver = name }).(:poltergeist)
 
 unless /RubyMine/ === ENV['RUBYLIB']
-  Rails.logger.level = 4
-  Moped.logger.level = 4
+  Rails.logger.level = Mongo::Logger.level = Mongoid.logger.level = 4
 end
 
 silence_warnings { Redis = MockRedis }
@@ -38,8 +37,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include FactoryGirl::Syntax::Methods
-  config.include Mongoid::Matchers
-  config.include Moped::Cleaner
 
   config.include TestHelper
   config.include RequestHelper, :type => :feature
@@ -50,6 +47,7 @@ RSpec.configure do |config|
   Mongoid.models.map(&:create_indexes)
 
   config.before(:each) { Sidekiq.redis {|r| r.flushall } }
+  config.before(:each) { Mongoid.models.map(&:delete_all) }
 
   # use :firefox => true as metadata to feature tests to run the test in /Applications/Firefox
   config.before(:each, :firefox => true) { change_driver.(:selenium) }

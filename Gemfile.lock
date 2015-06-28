@@ -1,3 +1,20 @@
+GIT
+  remote: git://github.com/mongodb/mongo-ruby-driver.git
+  revision: 08d8433f6ac85d22b2e46e4ebdd3feee7174df00
+  specs:
+    mongo (2.1.0)
+      bson (~> 3.0)
+
+GIT
+  remote: git://github.com/mongoid/mongoid.git
+  revision: ed9b1c4b51d437c10b24bec199c4d4d7c18a0f76
+  specs:
+    mongoid (5.0.0)
+      activemodel (~> 4.0)
+      mongo (~> 2.1)
+      origin (~> 2.1)
+      tzinfo (>= 0.3.37)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,7 +55,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.0)
-    bson (2.3.0)
+    bson (3.1.1)
     builder (3.2.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -57,7 +74,7 @@ GEM
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    ethon (0.7.3)
+    ethon (0.7.4)
       ffi (>= 1.3.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -75,24 +92,9 @@ GEM
     mini_portile (0.6.2)
     minitest (5.7.0)
     mock_redis (0.14.1)
-    mongoid (4.0.2)
-      activemodel (~> 4.0)
-      moped (~> 2.0.0)
-      origin (~> 2.1)
-      tzinfo (>= 0.3.37)
-    mongoid-rspec (2.2.0)
-      mongoid (~> 4.0.0)
-      rake
-      rspec (~> 3.1)
-    moped (2.0.4)
-      bson (~> 2.2)
-      connection_pool (~> 2.0)
-      optionable (~> 0.2.0)
-    moped-cleaner (0.1.4)
     multi_json (1.11.1)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    optionable (0.2.0)
     origin (2.1.1)
     poltergeist (1.6.0)
       capybara (~> 2.1)
@@ -137,10 +139,6 @@ GEM
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
-    rspec (3.3.0)
-      rspec-core (~> 3.3.0)
-      rspec-expectations (~> 3.3.0)
-      rspec-mocks (~> 3.3.0)
     rspec-core (3.3.1)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.0)
@@ -185,8 +183,8 @@ GEM
     timecop (0.7.4)
     timers (4.0.1)
       hitimes
-    typhoeus (0.7.1)
-      ethon (>= 0.7.1)
+    typhoeus (0.7.2)
+      ethon (>= 0.7.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     webmock (1.21.0)
@@ -205,18 +203,16 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson (~> 2.2)
   capybara
   factory_girl
   mock_redis
-  mongoid
-  mongoid-rspec
-  moped-cleaner
+  mongo!
+  mongoid!
   poltergeist
   puma
   rails (~> 4.2)
   rails_12factor
-  railties (~> 4.2)
+  railties
   rspec-its
   rspec-rails
   selenium-webdriver
@@ -225,3 +221,6 @@ DEPENDENCIES
   typhoeus
   webmock
   whenever
+
+BUNDLED WITH
+   1.10.5
