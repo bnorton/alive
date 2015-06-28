@@ -15,6 +15,7 @@ class Test < Model
     user.update(:test_index => user.test_index+1)
 
     self.index = user.test_index
+    self.at = Time.now
     self.interval = 6.hours if self.interval.zero?
   end
 end

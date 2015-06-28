@@ -25,6 +25,12 @@ describe Test do
         expect(user.test_index).to eq(14)
       end
 
+      it 'should have the run time' do
+        subject.save
+
+        expect(subject.at).to be_within(1.second).of(Time.now)
+      end
+
       it 'should have the run interval' do
         subject.save
 

@@ -67,8 +67,10 @@ GEM
       timers (~> 4.0.0)
     childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
-    chronic (0.10.2)
     cliver (0.3.2)
+    clockwork (1.2.0)
+      activesupport
+      tzinfo
     connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
@@ -194,8 +196,6 @@ GEM
     websocket-driver (0.5.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    whenever (0.9.4)
-      chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -204,6 +204,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  clockwork
   factory_girl
   mock_redis
   mongo!
@@ -220,7 +221,6 @@ DEPENDENCIES
   timecop
   typhoeus
   webmock
-  whenever
 
 BUNDLED WITH
    1.10.5

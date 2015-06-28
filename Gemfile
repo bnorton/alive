@@ -8,7 +8,8 @@ gem 'mongo', :github => 'mongodb/mongo-ruby-driver'
 gem 'puma'
 
 gem 'sidekiq'
-gem 'whenever'
+gem 'clockwork'
+
 gem 'typhoeus'
 
 # gem 'slack-notifier'

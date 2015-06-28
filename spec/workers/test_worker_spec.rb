@@ -24,10 +24,11 @@ describe TestWorker do
     end
 
     it 'should set the next run time' do
+      test.update(:at => 4.minutes.from_now)
       perform
 
       test.reload
-      expect(test.at).to be_within(1.second).of(6.hours.from_now)
+      expect(test.at).to be_within(1.second).of((6.hours+4.minutes).from_now)
     end
 
     it 'should send the job to process the run' do

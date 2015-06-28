@@ -7,8 +7,6 @@ class Check < Model
 
   belongs_to :test
 
-  after_create -> { TestWorker.perform_async(test.id) }, :if => -> { index == 1 }
-
   def decorator
     "Check_#{kind}".classify.constantize
   end
