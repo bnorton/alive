@@ -29,7 +29,7 @@ describe TestRunWorker do
       allow(Request).to receive(:run).with(test) do
         Timecop.travel(31.seconds)
 
-        response.duration = 31
+        response.duration = 31.31
         response
       end
 
@@ -37,9 +37,7 @@ describe TestRunWorker do
 
       test_run.reload
       expect(test_run.at).to be_within(1.second).of(31.seconds.ago)
-      expect(test_run.duration).to eq(31)
-      expect(test_run.duration).to be >= 31.seconds
-      expect(test_run.duration).to be <= (32.seconds)
+      expect(test_run.duration).to eq(31.31)
     end
 
     describe 'when there are checks' do

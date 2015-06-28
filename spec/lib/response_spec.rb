@@ -57,6 +57,6 @@ describe Response do
   end
 
   describe '#duration' do
-    its(:duration) { should == 245 }
+    its(:duration) { should == 245.0 }
   end
 end

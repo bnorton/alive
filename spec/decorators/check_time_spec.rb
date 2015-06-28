@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CheckTime do
-  let(:time) { 430 }
+  let(:time) { 430.0 }
   let(:check) { create(:check, :kind => Kind::Check::TIME, :value => '440') }
   let(:response) { Response.new.tap {|r| r.duration = time } }
 
@@ -17,7 +17,7 @@ describe CheckTime do
     end
 
     describe 'when the duration exceeds the max' do
-      let(:time) { 450 }
+      let(:time) { 450.0 }
 
       it 'should be false' do
         expect(call).to eq(false)

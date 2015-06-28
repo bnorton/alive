@@ -6,7 +6,7 @@ class Response
     @code = raw.try(:code).to_i
     @headers = raw.try(:headers) || {}
     @body = (JSON.parse(@raw.try(:body)) rescue @raw.try(:body)) || ''
-    @duration = raw.try(:total_time).to_i
+    @duration = raw.try(:total_time).to_f
   end
 
 end

@@ -1,7 +1,7 @@
 class TestRun < Model
   attrs String => { },
     Time => { :at => :a, :run_at => :ra },
-    Integer => { :duration => :d }
+    Float => { :duration => :d }
 
   validates :user_id, :test_id, :presence => true
 
