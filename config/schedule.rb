@@ -1,3 +1,3 @@
-every 10.seconds do
+every 1.minute do
   rake 'jobs:tests:seed'
 end
