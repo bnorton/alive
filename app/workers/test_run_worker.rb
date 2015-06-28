@@ -9,8 +9,6 @@ class TestRunWorker < Worker
       !check.decorator.new(check).call(response)
     end
 
-    test_run.failed_check_id = failed_check.try(:id)
-    test_run.duration = response.duration
-    test_run.save
+    test_run.update( :failed_check_id => failed_check.try(:id), :duration => response.duration )
   end
 end

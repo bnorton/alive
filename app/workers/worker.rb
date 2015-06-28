@@ -6,5 +6,11 @@ class Worker
   # InstanceMethods
 
   # ClassMethods
+  def self.worker(options)
+    if options[:queue] && options[:queue] != :exigent
+      raise ':exigent is currently the only queue value'
+    end
 
+    sidekiq_options options
+  end
 end

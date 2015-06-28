@@ -17,10 +17,12 @@ describe Test do
 
   describe '#save' do
     describe 'on create' do
-      it 'should process the new test' do
-        expect(TestWorker).to receive(:perform_async).with(subject.id)
-
+      it 'should have the next test index' do
+        subject.user = user = create(:user).tap {|u| u.update(:test_index => 13) }
         subject.save
+
+        expect(subject.index).to eq(14)
+        expect(user.test_index).to eq(14)
       end
 
       it 'should have the run interval' do
