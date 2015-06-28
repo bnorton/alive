@@ -1,6 +1,10 @@
-ENV['RAILS_ENV'] = 'test'
+ENV['RAILS_ENV'] = ENV['RACK_ENV'] = 'test'
+
+require 'mongoid'
+Mongoid.load!(File.expand_path('../../config/mongoid.yml', __FILE__))
 
 require File.expand_path('../../config/environment', __FILE__)
+
 require 'rspec/rails'
 require 'rspec/its'
 require 'factories'

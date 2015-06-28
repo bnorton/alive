@@ -1,3 +1,17 @@
+# See: https://gist.github.com/masatomo/983a84bad9671dc29213
+dependencies:
+  cache_directories:
+    - mongodb-linux-x86_64-3.0.4
+  pre:
+    - if [[ ! -d mongodb-linux-x86_64-3.0.4 ]]; then wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-3.0.4.tgz && tar xvzf mongodb-linux-x86_64-3.0.4.tgz; fi
+    - sudo /etc/init.d/mongodb stop
+    - sudo cp mongodb-linux-x86_64-3.0.4/bin/* /usr/bin
+    - sudo /etc/init.d/mongodb start
+
+database:
+  override:
+    - cp config/mongoid.yml{.ci,}
+
 deployment:
   production:
     branch: master
