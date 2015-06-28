@@ -1,6 +1,8 @@
 # alive
 A Deployable Service™ that runs scheduled assertions on fetched HTTP content.
 
+[![Circle CI](https://circleci.com/gh/bnorton/alive.svg?style=svg)](https://circleci.com/gh/bnorton/alive)
+<!-- [![Circle CI](https://circleci.com/gh/{{username}}/alive.svg?style=svg)](https://circleci.com/gh/{{username}}/alive) -->
 
 #Direct Usage
 
@@ -42,4 +44,3 @@ To run the RSpec / Capybara tests you'll need:
 # Reporting Complex Issues
 - Isolate the problem logically
 - Isolate the problem with a failing test
-
