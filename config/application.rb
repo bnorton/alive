@@ -7,7 +7,7 @@ require 'sprockets/railtie'
 
 Bundler.require(*Rails.groups)
 
-module Docent
+module Alive
   class Application < Rails::Application
     config.middleware.use Rack::Deflater
 

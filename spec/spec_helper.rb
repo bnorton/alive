@@ -5,6 +5,7 @@ require 'rspec/rails'
 require 'rspec/its'
 require 'factories'
 require 'capybara/rails'
+require 'mock_redis'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f }
 
@@ -26,6 +27,8 @@ unless /RubyMine/ === ENV['RUBYLIB']
   Moped.logger.level = 4
 end
 
+silence_warnings { Redis = MockRedis }
+
 RSpec.configure do |config|
   config.mock_with :rspec
 
@@ -45,6 +48,8 @@ RSpec.configure do |config|
 
   Dir[Rails.root.join('app/models/**/*.rb')].each {|f| require f }
   Mongoid.models.map(&:create_indexes)
+
+  config.before(:each) { Sidekiq.redis {|r| r.flushall } }
 
   # use :firefox => true as metadata to feature tests to run the test in /Applications/Firefox
   config.before(:each, :firefox => true) { change_driver.(:selenium) }

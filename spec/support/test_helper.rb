@@ -1,4 +1,4 @@
-module RequestHelper
+module TestHelper
   def self.included(base)
     base.send(:include, InstanceMethods)
   end

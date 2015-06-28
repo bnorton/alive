@@ -8,7 +8,8 @@ gem 'bson', '~> 2.2'
 gem 'puma'
 
 gem 'sidekiq'
-# gem 'typhoeus'
+gem 'whenever'
+gem 'typhoeus'
 # gem 'addressable'
 
 # gem 'slack-notifier'
