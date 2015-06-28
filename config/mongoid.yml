@@ -1,0 +1,49 @@
+session_options: &default_session_options
+  write: { w: 1 }
+  read: :primary_preferred
+  max_retries: 10
+  retry_interval: 0.5
+  pool_size: 40
+
+environment_options: &default_options
+  include_root_in_json: false
+  include_type_for_serialization: false
+  preload_models: false
+  raise_not_found_error: true
+  scope_overwrite_exception: false
+  use_activesupport_time_zone: true
+  use_utc: false
+
+test:
+  sessions:
+    default:
+      database: <%= ENV['DBNAME'] || 'alive_test' %>
+      hosts:
+        - localhost:27017
+      options:
+        <<: *default_session_options
+        max_retries: 5
+        retry_interval: 0
+        pool_size: 1
+  options:
+    <<: *default_options
+
+development:
+  sessions:
+    default:
+      database: <%= ENV['DBNAME'] || 'alive_development' %>
+      hosts:
+        - localhost:27017
+      options:
+        <<: *default_session_options
+  options:
+    <<: *default_options
+
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGODB_URL'] %>
+      options:
+        <<: *default_session_options
+  options:
+    <<: *default_options
