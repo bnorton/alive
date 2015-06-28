@@ -25,6 +25,7 @@ heroku config:set SECRET_KEY_BASE=$(rake secret)
 ```
 
 - Deploy your first version with `git push heroku master`
+- If setting up CircleCI with heroku deployment modify `circle.yml` to have your app-name
 
 # Making Customizations (+ pull request)
 
