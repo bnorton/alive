@@ -1,0 +1,18 @@
+<div>
+  <div>
+    <div>
+      <div>
+        <form method="post" action="<%= users_path %>">
+          <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password">
+            <%= csrf_form_tags %>
+            <input type="submit" value="Sign Up">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

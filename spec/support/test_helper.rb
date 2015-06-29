@@ -8,7 +8,7 @@ module TestHelper
       if respond_to?(:controller)
         allow(controller).to receive(:user).and_return(user)
       else
-        allow_any_instance_of(BaseController).to receive(:user).and_return(user)
+        allow_any_instance_of(Application).to receive(:user).and_return(user)
       end
     end
 
@@ -16,7 +16,7 @@ module TestHelper
       if respond_to?(:controller)
         allow(controller).to receive(:user).and_return(nil)
       else
-        allow_any_instance_of(BaseController).to receive(:user).and_return(nil)
+        allow_any_instance_of(Application).to receive(:user).and_return(nil)
       end
     end
 

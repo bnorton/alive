@@ -14,6 +14,14 @@ module RequestHelper
       end
     end
 
+    def should_be_on_the_dashboard
+      expect(page).to have_content('Tests')
+      expect(page).to have_content('New Test')
+      expect(page).to have_content('Log out')
+
+      expect(current_url).to match(/dashboard/)
+    end
+
   end
 
   module ClassMethods

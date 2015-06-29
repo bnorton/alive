@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.2.2'
 
 gem 'rails', '~> 4.2'
+gem 'sass-rails'
 gem 'railties'
 gem 'mongoid', :github => 'mongoid/mongoid'
 gem 'mongo', :github => 'mongodb/mongo-ruby-driver'
@@ -15,8 +16,8 @@ gem 'typhoeus'
 # gem 'slack-notifier'
 # gem 'hookly', '~> 0.9'
 
-# gem 'jquery-rails'
-# gem 'bootstrap-sass'
+gem 'jquery-rails'
+gem 'bootstrap-sass'
 
 group :production do
   gem 'rails_12factor'
