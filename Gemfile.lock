@@ -208,6 +208,9 @@ GEM
       ethon (>= 0.7.4)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uglifier (2.7.1)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -242,6 +245,7 @@ DEPENDENCIES
   sidekiq
   timecop
   typhoeus
+  uglifier
   webmock
 
 BUNDLED WITH

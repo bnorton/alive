@@ -19,6 +19,10 @@ gem 'typhoeus'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 
+group :assets do
+  gem 'uglifier'
+end
+
 group :production do
   gem 'rails_12factor'
 end
