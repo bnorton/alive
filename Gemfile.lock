@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mongodb/mongo-ruby-driver.git
-  revision: 08d8433f6ac85d22b2e46e4ebdd3feee7174df00
+  revision: bc55f8267582608b83bedfa08653601de8461b2b
   specs:
     mongo (2.1.0)
       bson (~> 3.0)
@@ -55,12 +55,12 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.0)
-    autoprefixer-rails (5.1.9)
+    autoprefixer-rails (5.2.1)
       execjs
       json
-    bootstrap-sass (3.3.4.1)
+    bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
+      sass (>= 3.3.0)
     bson (3.1.1)
     builder (3.2.2)
     capybara (2.4.4)
@@ -92,7 +92,7 @@ GEM
       activesupport (>= 4.1.0)
     hitimes (1.2.2)
     i18n (0.7.0)
-    jquery-rails (4.0.3)
+    jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
@@ -174,7 +174,7 @@ GEM
     rspec-support (3.3.0)
     rubyzip (1.1.7)
     safe_yaml (1.0.4)
-    sass (3.4.13)
+    sass (3.4.15)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
