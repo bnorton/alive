@@ -10,11 +10,10 @@ describe :users, :js => true do
 
       click_button 'Sign Up'
 
-      should_be_on_the_dashboard
+      should_be_on_the(:dashboard)
 
       user = User.last
       expect(user.email).to eq('john@example.com')
     end
   end
 end
-

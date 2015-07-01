@@ -36,6 +36,12 @@ describe Test do
 
         expect(subject.interval).to be(6.hours.to_i)
       end
+
+      it 'should have the last success' do
+        subject.save
+
+        expect(subject.last_success).to be(true)
+      end
     end
   end
 end

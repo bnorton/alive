@@ -4,7 +4,7 @@ describe Response do
   let(:code) { 200 }
   let(:body) { '{"id":5,"name":"John Doe"}' }
   let(:headers) { "Content-Type: application/json\nContent-Length: 3\n" }
-  let(:raw_response) { Typhoeus::Response.new(:code => code, :body => body, :headers => headers, :total_time => 245) }
+  let(:raw_response) { Typhoeus::Response.new(:code => code, :body => body, :headers => headers, :total_time => 0.245) }
 
   subject { described_class.new(raw_response) }
 
@@ -58,5 +58,16 @@ describe Response do
 
   describe '#duration' do
     its(:duration) { should == 245.0 }
+  end
+
+  describe '#to_hash' do
+    its(:to_hash) {
+      should == {
+        :code => 200,
+        :duration => 245.0,
+        :headers => { 'Content-Type' => 'application/json', 'Content-Length' => '3' }.to_json,
+        :body => body
+      }
+    }
   end
 end

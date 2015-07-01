@@ -14,12 +14,12 @@ module RequestHelper
       end
     end
 
-    def should_be_on_the_dashboard
+    def should_be_on_the(name)
       expect(page).to have_content('Tests')
       expect(page).to have_content('New Test')
       expect(page).to have_content('Log out')
 
-      expect(current_url).to match(/dashboard/)
+      expect(current_url).to match(/#{name.to_s}/)
     end
 
   end

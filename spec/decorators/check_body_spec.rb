@@ -11,6 +11,18 @@ describe CheckBody do
 
   its(:class) { should == CheckBody }
 
+  describe '#to_s' do
+    its(:to_s) { should == 'HTML body contains foo-bar' }
+
+    describe 'when there a key' do
+      before do
+        check.key = 'user.name'
+      end
+
+      its(:to_s) { should == 'JSON Object user.name equals foo-bar' }
+    end
+  end
+
   describe '#call' do
     let(:call) { subject.call(response) }
 

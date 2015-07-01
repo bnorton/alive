@@ -4,6 +4,8 @@ class User < Model
 
   validates :email, :password, :presence => true
 
+  has_many :tests
+
   def password_is?(string)
     password == Digest::SHA256.hexdigest("#{string}|#{salt}")
   end

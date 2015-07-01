@@ -13,7 +13,7 @@ describe :sessions, :js => true do
 
       click_button 'Login'
 
-      should_be_on_the_dashboard
+      should_be_on_the(:dashboard)
 
       click_link 'Log out'
 
@@ -22,18 +22,16 @@ describe :sessions, :js => true do
     end
   end
 
-  describe '#desroy' do
+  describe '#destroy' do
     before { sign_in user }
 
     it 'should logout the user' do
       visit '/dashboard'
 
-      should_be_on_the_dashboard
+      should_be_on_the(:dashboard)
       click_link 'Log out'
 
       expect(current_url).to match(/login/)
     end
   end
 end
-
-

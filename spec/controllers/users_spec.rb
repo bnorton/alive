@@ -31,7 +31,7 @@ describe Users do
     end
 
     it 'should go to the dashboard' do
-      expect(response).to redirect_to(dashboard_path)
+      expect(response).to redirect_to(dashboard_index_path)
     end
   end
 end

@@ -1,4 +1,8 @@
 class CheckBody < Decorator
+  def to_s
+    check.key? ? "JSON Object #{check.key} equals #{check.value}" : "HTML body contains #{check.value}"
+  end
+
   def call(response)
     case body = response.body
     when String

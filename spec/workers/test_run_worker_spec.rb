@@ -40,6 +40,37 @@ describe TestRunWorker do
       expect(test_run.duration).to eq(31.31)
     end
 
+    it 'should have the response attributes' do
+      allow(Request).to receive(:run).with(test) do
+        response.code = 509
+        response.duration = 104.56
+        response.headers = { 'header' => 'foo', 'other' => 1 }
+        response
+      end
+
+      perform
+
+      test_run.reload
+      expect(test_run.code).to eq(509)
+      expect(test_run.duration).to eq(104.56)
+      expect(test_run.headers).to eq('{"header":"foo","other":1}')
+    end
+
+    it 'should cache the last code and last duration on the test' do
+      allow(Request).to receive(:run).with(test) do
+        response.code = 401
+        response.duration = 44.56
+        response
+      end
+
+      perform
+
+      test.reload
+      expect(test.last_success).to eq(true)
+      expect(test.last_code).to eq(401)
+      expect(test.last_duration).to eq(44.56)
+    end
+
     describe 'when there are checks' do
       let!(:checks) { [
         create(:check, :test => test, :kind => Kind::Check::STATUS),
@@ -99,6 +130,13 @@ describe TestRunWorker do
 
           test_run.reload
           expect(test_run.failed_check_id).to eq(@check.id)
+        end
+
+        it 'should cache the failure on the test' do
+          perform
+
+          test.reload
+          expect(test.last_success).to eq(false)
         end
 
         it 'should not run the subsequent checks' do

@@ -5,8 +5,17 @@ class Response
     @raw = raw_response
     @code = raw.try(:code).to_i
     @headers = raw.try(:headers) || {}
-    @body = (JSON.parse(@raw.try(:body)) rescue @raw.try(:body)) || ''
-    @duration = raw.try(:total_time).to_f
+    @raw_body = @raw.try(:body)
+    @body = (JSON.parse(@raw_body) rescue @raw_body) || ''
+    @duration = raw.try(:total_time).to_f * 1000
   end
 
+  def to_hash
+    {
+      :code => code,
+      :duration => duration,
+      :headers => headers.to_json,
+      :body => @raw_body
+    }
+  end
 end

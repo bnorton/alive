@@ -7,11 +7,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to 'Alive?', dashboard_path, :class => 'navbar-brand' %>
+      <%= link_to 'Alive?', dashboard_index_path, :class => 'navbar-brand' %>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li><%= link_to 'Home', dashboard_index_path %></li>
         <li><a href="/tests">Tests</a></li>
         <li><a href="/tests/new">New Test</a></li>
         <li class="dropdown">
@@ -34,3 +34,5 @@
     </div><!--/.nav-collapse -->
   </div>
 </nav>
+
+<div style="margin-top: 20px;"></div>

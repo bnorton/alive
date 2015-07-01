@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new'
   get 'logout' => 'sessions#destroy'
   resources :sessions, :only => [:create]
-
-  get 'dashboard' => 'dashboards#index'
+  resources :dashboard, :only => [:index]
+  resources :tests, :only => [:index]
 
 end

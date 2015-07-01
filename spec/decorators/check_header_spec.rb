@@ -10,6 +10,10 @@ describe CheckHeader do
 
   its(:class) { should == CheckHeader }
 
+  describe '#to_s' do
+    its(:to_s) { should == "Header #{key} equals application/json" }
+  end
+
   describe '#call' do
     let(:call) { subject.call(response) }
 

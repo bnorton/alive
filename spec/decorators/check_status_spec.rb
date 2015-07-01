@@ -9,6 +9,10 @@ describe CheckStatus do
 
   its(:class) { should == CheckStatus }
 
+  describe '#to_s' do
+    its(:to_s) { should == 'Status equals 302' }
+  end
+
   describe '#call' do
     let(:call) { subject.call(response) }
 

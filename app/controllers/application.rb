@@ -18,17 +18,16 @@ class Application < ActionController::Base
   end
 
   def user
-    defined?(@user) ? @user : (@user = User.where(:id => cookie(:id), :token => cookie(:token)))
+    defined?(@user) ? @user : (@user = User.where(:id => cookie(:id), :token => cookie(:token)).first)
   end
 
   def authenticate!
     begin
       raise 'User not authenticated : ' +
-        JSON.dumps(
-          :cookie => { :id => cookie(:id), :token => cookie(:token) },
+        { :cookie => { :id => cookie(:id), :token => cookie(:token) },
           :headers => headers,
           :params => params
-        )
+        }.to_json
     end unless user.present?
   end
 end

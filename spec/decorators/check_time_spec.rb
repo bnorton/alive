@@ -9,6 +9,10 @@ describe CheckTime do
 
   its(:class) { should == CheckTime }
 
+  describe '#to_s' do
+    its(:to_s) { should == 'Response time is less than 440ms' }
+  end
+
   describe '#call' do
     let(:call) { subject.call(response) }
 

@@ -5,10 +5,11 @@ class TestRunWorker < Worker
 
     response = Request.run(test_run.test)
 
-    failed_check = Check.where(:test_id => test_run.test_id).each.find do |check|
+    failed_check = test_run.test.checks.each.find do |check|
       !check.decorator.new(check).call(response)
     end
 
-    test_run.update( :failed_check_id => failed_check.try(:id), :duration => response.duration )
+    test_run.test.update(:last_code => response.code, :last_duration => response.duration, :last_success => !failed_check.try(:id))
+    test_run.update( :failed_check_id => failed_check.try(:id), **response.to_hash)
   end
 end
