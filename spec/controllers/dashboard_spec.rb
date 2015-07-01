@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Dashboards do
+describe Dashboard do
   let(:user) { create(:user) }
 
   before { sign_in user }
@@ -9,7 +9,7 @@ describe Dashboards do
     let(:response) { get :index }
 
     it 'should render the dashboard' do
-      expect(response).to render_template('dashboards/index')
+      expect(response).to render_template('dashboard/index')
     end
   end
 end
