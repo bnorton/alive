@@ -7,7 +7,7 @@ describe :tests, :js => true do
 
   describe '#index' do
     let!(:test1) { create(:test, :user => user, :url => 'https://staging.my-site.com', :last_code => 209, :last_duration => 274) }
-    let!(:test2) { create(:test, :user => user, :url => 'http://my-site.com', :last_code => 501, :last_duration => 1240) }
+    let!(:test2) { create(:test, :user => user, :url => 'http://my-site.com', :breed => 'post', :last_code => 501, :last_duration => 1240) }
 
     it 'lists the tests' do
       test2.update(:last_success => false)
@@ -20,14 +20,14 @@ describe :tests, :js => true do
 
       within "#test-#{test1.id}" do
         expect(page).to have_content('Passed')
-        expect(page).to have_content('https://staging.my-site.com')
+        expect(page).to have_content('GET https://staging.my-site.com')
         expect(page).to have_content('209')
         expect(page).to have_content('274ms')
       end
 
       within "#test-#{test2.id}" do
         expect(page).to have_content('Failed')
-        expect(page).to have_content('http://my-site.com')
+        expect(page).to have_content('POST http://my-site.com')
         expect(page).to have_content('501')
         expect(page).to have_content('1240ms')
       end

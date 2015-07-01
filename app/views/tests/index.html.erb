@@ -5,18 +5,24 @@
   <div class="col-md-8">
     <h3 class="title">API &amp; Browser Tests</h3>
     <div>
-      <ul class="list-group">
+      <ul class="test-items list-group">
         <% @tests.each do |test| %>
-        <li id="test-<%= test.id %>" class="list-group-item">
+        <li id="test-<%= test.id %>" class="test-item list-group-item">
           <div>
-            <span class="test-success"><%= test.last_success ? 'Passed' : 'Failed' %></span>
+            <span>
+              <span class="glyphicon glyphicon-<%= test.last_success ? 'ok text-success' : 'remove text-danger' %>"></span>
+              <span class="test-success"><%= test.last_success ? 'Passed' : 'Failed' %></span>
+            </span>
+
+            <span class="test-breed"><%= test.breed.upcase %></span>
             <span class="test-url"><%= test.url %></span>
-            <span class="test-code"><%= test.last_code %></span>
-            <span class="test-time"><%= test.last_duration.to_i %>ms</span>
+            <!-- RHS -->
+            <span class="pull-right test-time"><%= test.last_duration.to_i %>ms</span>
+            <span class="pull-right test-code label label-<%= test.last_success ? 'success' : 'danger' %>"><%= test.last_code %></span>
           </div>
           <div class="checks">
             <div>Checks</div>
-            <ul class="list-group">
+            <ul class="check-items list-group">
               <% test.checks.each do |check| %>
                 <li id="check-<%= check.id %>" class="list-group-item"><%= check.decorator.new(check) %></li>
               <% end %>
