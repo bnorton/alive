@@ -1,6 +1,8 @@
 
 .test-items {
   .test-item {
+    padding-bottom: 5px;
+
     span {
       margin-left: 3px;
     }
@@ -18,13 +20,14 @@
       margin-top: 2px;
       margin-right: 20px;
     }
+
+    .test-toggle {
+      padding-left: 4px;
+      padding-bottom: 2px;
+    }
   }
 
-  .checks {
-    margin-top: 5px;
-  }
-
-  .check-items {
+  .test-check-items {
     margin-top: 5px;
   }
 }

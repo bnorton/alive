@@ -48,7 +48,7 @@ describe :tests, :js => true do
         within "#test-#{test1.id}" do
           expect(page).to have_content('Checks')
 
-          within '.checks' do
+          within '.test-checks' do
             expect(page).to have_content('Status equals 334')
             expect(page).to have_content('Header Content-Type equals application/javascript')
           end
@@ -57,11 +57,33 @@ describe :tests, :js => true do
         within "#test-#{test2.id}" do
           expect(page).to have_content('Checks')
 
-          within '.checks' do
+          within '.test-checks' do
             expect(page).to have_content('JSON Object user.id equals 5549')
             expect(page).to have_content('HTML body contains Homepage Title')
             expect(page).to have_content('Response time is less than 500ms')
           end
+        end
+      end
+    end
+
+    describe 'when there is request metadata' do
+      before do
+        test1.update(
+          :headers => {'Cookie' => 'abc=1234', 'Content-Type' => 'foo/bar'}.to_json,
+          :body => { 'param1' => 'value1', 'param2' => 2 }.to_json
+        )
+      end
+
+      it 'should expand the info' do
+        visit '/tests'
+
+        within "#test-#{test1.id}" do
+          find('a.test-headers-toggle').click
+          expect(page).to have_content('Cookie: abc=123')
+          expect(page).to have_content('Content-Type: foo/bar')
+
+          find('a.test-body-toggle').click
+          expect(page).to have_content('{"param1":"value1","param2":2}')
         end
       end
     end

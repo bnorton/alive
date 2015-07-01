@@ -20,10 +20,26 @@
             <span class="pull-right test-time"><%= test.last_duration.to_i %>ms</span>
             <span class="pull-right test-code label label-<%= test.last_success ? 'success' : 'danger' %>"><%= test.last_code %></span>
           </div>
-          <div class="checks">
-            <div>Checks</div>
-            <ul class="check-items list-group">
-              <% test.checks.each do |check| %>
+          <div class="test-info">
+          <% if test.headers %>
+            <div>
+              <a class="btn test-toggle test-headers-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-headers">Headers <span class="caret"></span></a>
+              <div class="test-headers collapse"><code><%= JSON.parse(test.headers).map {|(k,v)| "#{k}: #{v}" }.join('<br>') %></code></div>
+            </div>
+          <% end %>
+          <% if test.body %>
+            <div>
+              <a class="btn test-toggle test-body-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-body">Body <span class="caret"></span></a>
+              <div class="test-body collapse"><code><%= test.body %></code></div>
+            </div>
+          <% end %>
+          </div>
+          <% checks = test.checks.to_a %>
+          <a class="btn test-toggle test-checks-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-checks">Checks (<%= checks.size %>) <span class="caret"></span></a>
+
+          <div class="test-checks collapse in">
+            <ul class="test-check-items list-group">
+              <% checks.each do |check| %>
                 <li id="check-<%= check.id %>" class="list-group-item"><%= check.decorator.new(check) %></li>
               <% end %>
             </ul>
