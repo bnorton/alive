@@ -5,14 +5,21 @@
   .test-item {
     padding-bottom: 5px;
 
+    .test-top {
+      padding: 5px 0;
+      margin-bottom: 5px;
+    }
+
+    .test-title {
+      font-size: 1.5em;
+    }
+
     span {
       margin-left: 3px;
     }
 
     .test-breed {
       color: #999;
-      margin-left: 10px;
-      margin-right: 5px;
     }
 
     .test-ago {
@@ -37,6 +44,10 @@
     .test-toggle {
       padding-left: 4px;
       padding-bottom: 2px;
+    }
+
+    .test-info {
+      margin-top: 5px;
     }
   }
 

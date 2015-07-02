@@ -1,19 +1,19 @@
 <li id="test-<%= test.id %>" class="test-item list-group-item">
   <div>
-    <span>
+    <div class="test-top">
       <span class="glyphicon glyphicon-<%= test.last_success ? 'ok text-success' : 'remove text-danger' %>"></span>
-      <span class="test-success"><%= test.last_success ? 'Passed' : 'Failed' %></span>
-    </span>
-
-    <span class="test-breed"><%= test.breed.upcase %></span>
-    <span class="test-url"><%= test.url %></span>
-    <!-- RHS -->
-    <% if action == 'index' %>
-    <span class="pull-right test-edit"><a href="<%= test_path(test) %>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></span>
-    <% end %>
-    <span class="pull-right test-ago"><%= test.last_at && "#{time_ago_in_words(test.last_at)} ago" %></span>
-    <span class="pull-right test-time"><%= test.last_duration.to_i %>ms</span>
-    <span class="pull-right test-code label label-<%= test.last_success ? 'success' : 'danger' %>">Status <%= test.last_code %></span>
+      <span class="test-title"><%= link_to (test.name || "API Test #{test.index}"), test_path(test) %></span>
+      <!-- RHS -->
+      <span class="pull-right test-edit"><a href="<%= edit_test_path(test) %>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></span>
+      <span class="pull-right test-ago"><%= test.last_at && "#{time_ago_in_words(test.last_at)} ago" %></span>
+      <span class="pull-right test-time"><%= test.last_duration.to_i %>ms</span>
+      <span class="pull-right test-code label label-<%= test.last_success ? 'success' : 'danger' %>">Status <%= test.last_code %></span>
+    </div>
+    <div>
+      <!-- LHS -->
+      <span class="test-breed"><%= test.breed.upcase %></span>
+      <span class="test-url"><%= test.url %></span>
+    </div>
   </div>
   <div class="test-info">
     <% if test.headers %>

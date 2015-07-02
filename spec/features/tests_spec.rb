@@ -6,7 +6,7 @@ describe :tests, :js => true do
   before { sign_in user }
 
   describe '#index' do
-    let!(:test1) { create(:test, :user => user, :url => 'https://staging.my-site.com', :last_code => 209, :last_duration => 274) }
+    let!(:test1) { create(:test, :user => user,  :url => 'https://staging.my-site.com', :name => 'Automated Test?', :last_code => 209, :last_duration => 274) }
     let!(:test2) { create(:test, :user => user, :url => 'http://my-site.com', :breed => 'post', :last_code => 501, :last_duration => 1240) }
 
     it 'lists the tests' do
@@ -19,14 +19,16 @@ describe :tests, :js => true do
       expect(page).to have_content('API & Browser Tests')
 
       within "#test-#{test1.id}" do
-        expect(page).to have_content('Passed')
+        find('.glyphicon-ok') # Success
+        expect(page).to have_content('Automated Test?')
         expect(page).to have_content('GET https://staging.my-site.com')
         expect(page).to have_content('209')
         expect(page).to have_content('274ms')
       end
 
       within "#test-#{test2.id}" do
-        expect(page).to have_content('Failed')
+        find('.glyphicon-remove') # Failed
+        expect(page).to have_content('API Test 2')
         expect(page).to have_content('POST http://my-site.com')
         expect(page).to have_content('501')
         expect(page).to have_content('1240ms')
@@ -41,7 +43,16 @@ describe :tests, :js => true do
       end
 
       expect(page).to have_content('API Test 2')
-      expect(current_url).to match(/tests\/#{test2.id}/)
+      expect(current_url).to match(/tests\/#{test2.id}\/edit$/)
+    end
+
+    it 'shows a test' do
+      visit '/tests'
+
+      click_link 'API Test 2'
+
+      expect(page).to have_content('API Test 2')
+      expect(current_url).to match(/tests\/#{test2.id}$/)
     end
 
     describe 'when there are checks' do
@@ -127,15 +138,27 @@ describe :tests, :js => true do
           expect(page).to have_content('Response time is less than 980ms')
         end
       end
+    end
+  end
 
-      # it 'edits a check' do
-      #   within "#test-check-#{check2}" do
-      #     click_link 'Edit'
-      #
-      #     expect(page).to have_content('Check 2')
-      #     expect(current_url).to match(/checks\/#{check2.id}/)
-      #   end
-      # end
+  describe '#edit' do
+    let(:test) { create(:test, :user => user) }
+
+    it 'updates the test' do
+      visit "/tests/#{test.id}/edit"
+
+      fill_in 'name', :with => 'Test Name YAY'
+      fill_in 'url', :with => 'https://example.com/'
+      select 'OPTIONS', :from => 'breed'
+
+      click_button 'Save'
+
+      expect(current_url).to match(/tests\/#{test.id}$/)
+
+      test.reload
+      expect(test.name).to eq('Test Name YAY')
+      expect(test.url).to eq('https://example.com/')
+      expect(test.breed).to eq('options')
     end
   end
 end

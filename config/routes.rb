@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#destroy'
   resources :sessions, :only => [:create]
   resources :dashboard, :only => [:index]
-  resources :tests, :only => [:index, :show]
+  resources :tests, :only => [:index, :show, :edit, :update]
 
 end
