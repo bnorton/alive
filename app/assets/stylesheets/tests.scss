@@ -1,5 +1,7 @@
-
-.test-items {
+/**
+ * tests#index
+ */
+.tests-index, .tests-show {
   .test-item {
     padding-bottom: 5px;
 
@@ -8,17 +10,28 @@
     }
 
     .test-breed {
+      color: #999;
       margin-left: 10px;
+      margin-right: 5px;
+    }
 
+    .test-ago {
+      color: #999;
+      margin-left: 15px;
+    }
+
+    .test-code {
+      margin-top: 2px;
+      margin-right: 20px;
     }
 
     .test-time {
       margin-right: 5px;
     }
 
-    .test-code {
-      margin-top: 2px;
-      margin-right: 20px;
+    .test-edit {
+      margin-right: 5px;
+      margin-left: 15px;
     }
 
     .test-toggle {
@@ -32,3 +45,6 @@
   }
 }
 
+/**
+ * tests#show
+ */

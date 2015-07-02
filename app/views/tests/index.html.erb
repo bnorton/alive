@@ -5,46 +5,9 @@
   <div class="col-md-8">
     <h3 class="title">API &amp; Browser Tests</h3>
     <div>
-      <ul class="test-items list-group">
+      <ul class="tests-index list-group">
         <% @tests.each do |test| %>
-        <li id="test-<%= test.id %>" class="test-item list-group-item">
-          <div>
-            <span>
-              <span class="glyphicon glyphicon-<%= test.last_success ? 'ok text-success' : 'remove text-danger' %>"></span>
-              <span class="test-success"><%= test.last_success ? 'Passed' : 'Failed' %></span>
-            </span>
-
-            <span class="test-breed"><%= test.breed.upcase %></span>
-            <span class="test-url"><%= test.url %></span>
-            <!-- RHS -->
-            <span class="pull-right test-time"><%= test.last_duration.to_i %>ms</span>
-            <span class="pull-right test-code label label-<%= test.last_success ? 'success' : 'danger' %>"><%= test.last_code %></span>
-          </div>
-          <div class="test-info">
-          <% if test.headers %>
-            <div>
-              <a class="btn test-toggle test-headers-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-headers">Headers <span class="caret"></span></a>
-              <div class="test-headers collapse"><code><%= JSON.parse(test.headers).map {|(k,v)| "#{k}: #{v}" }.join('<br>') %></code></div>
-            </div>
-          <% end %>
-          <% if test.body %>
-            <div>
-              <a class="btn test-toggle test-body-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-body">Body <span class="caret"></span></a>
-              <div class="test-body collapse"><code><%= test.body %></code></div>
-            </div>
-          <% end %>
-          </div>
-          <% checks = test.checks.to_a %>
-          <a class="btn test-toggle test-checks-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-checks">Checks (<%= checks.size %>) <span class="caret"></span></a>
-
-          <div class="test-checks collapse in">
-            <ul class="test-check-items list-group">
-              <% checks.each do |check| %>
-                <li id="check-<%= check.id %>" class="list-group-item"><%= check.decorator.new(check) %></li>
-              <% end %>
-            </ul>
-          </div>
-        </li>
+        <%= render :partial => 'shared/test', :locals => { :test => test, :action => 'index' } %>
         <% end %>
       </ul>
     </div>

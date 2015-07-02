@@ -33,6 +33,17 @@ describe :tests, :js => true do
       end
     end
 
+    it 'edits a test' do
+      visit '/tests'
+
+      within "#test-#{test2.id}" do
+        click_link 'Edit'
+      end
+
+      expect(page).to have_content('API Test 2')
+      expect(current_url).to match(/tests\/#{test2.id}/)
+    end
+
     describe 'when there are checks' do
       before do
         create(:check, :test => test1, :kind => Kind::Check::STATUS, :value => '334')
@@ -46,7 +57,7 @@ describe :tests, :js => true do
         visit '/tests'
 
         within "#test-#{test1.id}" do
-          expect(page).to have_content('Checks')
+          expect(page).to have_content('Checks (2)')
 
           within '.test-checks' do
             expect(page).to have_content('Status equals 334')
@@ -55,7 +66,7 @@ describe :tests, :js => true do
         end
 
         within "#test-#{test2.id}" do
-          expect(page).to have_content('Checks')
+          expect(page).to have_content('Checks (3)')
 
           within '.test-checks' do
             expect(page).to have_content('JSON Object user.id equals 5549')
@@ -86,6 +97,45 @@ describe :tests, :js => true do
           expect(page).to have_content('{"param1":"value1","param2":2}')
         end
       end
+    end
+  end
+
+  describe '#show' do
+    let(:test) { create(:test, :user => user, :url => 'http://my-site.com', :last_code => 219, :last_duration => 204, :last_at => 12.hours.ago) }
+
+    it 'should show the test information' do
+      visit "/tests/#{test.id}"
+
+      expect(page).to have_content('API Test 1')
+      expect(page).to have_content('GET http://my-site.com')
+      expect(page).to have_content('Status 219')
+      expect(page).to have_content('204ms')
+      expect(page).to have_content('12 hours ago')
+    end
+
+    describe 'when there are checks' do
+      let!(:check1) { create(:check, :test => test, :kind => Kind::Check::STATUS, :value => '296') }
+      let!(:check2) { create(:check, :test => test, :kind => Kind::Check::TIME, :value => '980') }
+
+      before do
+        visit "/tests/#{test.id}"
+      end
+
+      it 'shows the checks' do
+        within '.test-checks' do
+          expect(page).to have_content('Status equals 296')
+          expect(page).to have_content('Response time is less than 980ms')
+        end
+      end
+
+      # it 'edits a check' do
+      #   within "#test-check-#{check2}" do
+      #     click_link 'Edit'
+      #
+      #     expect(page).to have_content('Check 2')
+      #     expect(current_url).to match(/checks\/#{check2.id}/)
+      #   end
+      # end
     end
   end
 end

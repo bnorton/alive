@@ -9,7 +9,7 @@ class TestRunWorker < Worker
       !check.decorator.new(check).call(response)
     end
 
-    test_run.test.update(:last_code => response.code, :last_duration => response.duration, :last_success => !failed_check.try(:id))
+    test_run.test.update(:last_code => response.code, :last_duration => response.duration, :last_success => !failed_check.try(:id), :last_at => Time.now)
     test_run.update( :failed_check_id => failed_check.try(:id), **response.to_hash)
   end
 end

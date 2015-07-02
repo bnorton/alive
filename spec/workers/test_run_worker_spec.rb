@@ -69,6 +69,7 @@ describe TestRunWorker do
       expect(test.last_success).to eq(true)
       expect(test.last_code).to eq(401)
       expect(test.last_duration).to eq(44.56)
+      expect(test.last_at).to be_within(1.second).of(Time.now)
     end
 
     describe 'when there are checks' do

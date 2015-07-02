@@ -12,4 +12,14 @@ describe Tests do
       expect(response).to render_template('tests/index')
     end
   end
+
+  describe '#show' do
+    let(:test) { create(:test, :user => user) }
+
+    let(:response) { get :show, :id => test.id }
+
+    it 'should render the test' do
+      expect(response).to render_template('tests/show')
+    end
+  end
 end

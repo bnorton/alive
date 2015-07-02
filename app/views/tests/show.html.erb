@@ -1,0 +1,11 @@
+<%= render :partial => 'shared/top' %>
+
+<div class="tests-show">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <h3 class="title">API Test <%= @test.index %></h3>
+    <div>
+      <%= render :partial => 'shared/test', :locals => { :test => @test, :action => 'show' } %>
+    </div>
+  </div>
+</div>
