@@ -1,0 +1,48 @@
+<div class="col-md-3"></div>
+<div class="panel panel-default col-md-6">
+  <% action = test.persisted? ? url_for(:controller => 'tests', :action => 'update', :id => test.id) : url_for(:controller => 'tests', :action => 'create') %>
+  <form class="form-horizontal" method="post" action="<%= action %>">
+    <fieldset>
+      <legend><%= test.persisted? ? 'Update' : 'Create' %> Test</legend>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="textinput">Test Name</label>
+        <div class="col-md-9">
+          <input id="name" name="name" type="text" value="<%= test.name %>" placeholder="Ping Homepage" class="form-control input-md">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="breed">Request Method</label>
+        <div class="col-md-9">
+          <select id="breed" name="breed" class="form-control">
+            <option value="get">GET</option>
+            <option value="post">POST</option>
+            <option value="options">OPTIONS</option>
+            <option value="head">HEAD</option>
+            <option value="put">PUT</option>
+            <option value="patch">PATCH</option>
+            <option value="delete">DELETE</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="url">Request URL</label>
+        <div class="col-md-9">
+          <input id="url" name="url" type="text" value="<%= test.url %>" placeholder="https://alive.trychameleon.com" class="form-control input-md" required="">
+        </div>
+      </div>
+
+      <input type="hidden" name="_method" value="<%= test.persisted? ? 'patch' : 'post' %>">
+      <%= csrf_form_tags %>
+
+      <div class="form-group pull-right">
+        <label class="control-label" for="save"></label>
+        <div class="col-md-1">
+          <button id="save" name="save" class="btn btn-primary"><%= test.persisted? ? 'Save' : 'Create' %></button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

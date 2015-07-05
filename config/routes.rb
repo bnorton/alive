@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :dashboard, :only => [:index]
   resources :checks, :only => [:edit, :update]
 
-  resources :tests, :only => [:index, :show, :edit, :update] do
+  resources :tests, :only => [:index, :new, :create, :show, :edit, :update] do
     resources :checks, :only => [:new, :create]
   end
 

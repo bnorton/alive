@@ -1,8 +1,17 @@
 class Tests < Application
-  before_action -> { @test = user.tests.find(params[:id]) }, :only => [:show, :edit, :update]
+  before_action :load_test, :only => [:show, :edit, :update]
 
   def index
     @tests = user.tests
+  end
+
+  def new
+  end
+
+  def create
+    @test = user.tests.new
+
+    update
   end
 
   def show
@@ -15,6 +24,12 @@ class Tests < Application
     @test.update(params.permit(*Test.allows))
 
     redirect_to test_path(@test)
+  end
+
+  private
+
+  def load_test
+    @test = user.tests.find(params[:id])
   end
 
 end

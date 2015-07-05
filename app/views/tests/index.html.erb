@@ -7,7 +7,7 @@
     <div>
       <ul class="tests-index list-group">
         <% @tests.each do |test| %>
-        <%= render :partial => 'shared/test', :locals => { :test => test } %>
+        <%= render :partial => 'shared/list/test', :locals => { :test => test } %>
         <% end %>
       </ul>
     </div>

@@ -13,6 +13,37 @@ describe Tests do
     end
   end
 
+  describe '#new' do
+    let(:response) { get :new }
+
+    it 'should render the new test' do
+      expect(response).to render_template('tests/new')
+    end
+  end
+
+  describe '#create' do
+    let(:options) { { :name => 'Test Name', :url => 'test-url', :breed => 'post' } }
+
+    let(:response) { patch :create, **options }
+
+    it 'should redirect to the test' do
+      response
+
+      expect(response).to redirect_to(test_path(Test.last))
+    end
+
+    it 'should add the test' do
+      expect {
+        response
+      }.to change(Test, :count).by(1)
+
+      test = Test.last
+      expect(test.name).to eq('Test Name')
+      expect(test.breed).to eq('post')
+      expect(test.url).to eq('test-url')
+    end
+  end
+
   describe '#show' do
     let(:test) { create(:test, :user => user) }
 

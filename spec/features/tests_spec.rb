@@ -122,10 +122,32 @@ describe :tests, :js => true do
     end
   end
 
+  describe '#create' do
+    it 'creates the test' do
+      visit '/tests/new'
+
+      expect(page).to have_content('Create Test')
+
+      fill_in 'name', :with => 'Test Name YAY'
+      fill_in 'url', :with => 'https://example.com/'
+      select 'OPTIONS', :from => 'breed'
+
+      click_button 'Create'
+
+      expect(current_url).to match(/tests\/.+/)
+
+      test = Test.last
+      expect(test.user).to eq(user)
+      expect(test.name).to eq('Test Name YAY')
+      expect(test.url).to eq('https://example.com/')
+      expect(test.breed).to eq('options')
+    end
+  end
+
   describe '#show' do
     let(:test) { create(:test, :user => user, :url => 'http://my-site.com', :last_code => 219, :last_duration => 204, :last_at => 12.hours.ago) }
 
-    it 'should show the test information' do
+    it 'shows the test information' do
       visit "/tests/#{test.id}"
 
       expect(page).to have_content('API Test 1')
