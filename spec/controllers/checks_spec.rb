@@ -34,6 +34,18 @@ describe Checks do
       expect(check.key).to eq('foo')
       expect(check.value).to eq('bar.foo')
     end
+
+    describe '.json' do
+      before { options[:format] = 'json' }
+
+      it 'should return the check' do
+        json = JSON.parse(response.body)
+
+        check = Check.last
+        expect(json['id']).to eq(check.id.to_s)
+        expect(json['value']).to eq('bar.foo')
+      end
+    end
   end
 
   describe '#edit' do
@@ -61,6 +73,17 @@ describe Checks do
       expect(check.key).to eq('Location')
       expect(check.value).to eq('google.com')
       expect(check.kind).to eq(kind)
+    end
+
+    describe '.json' do
+      before { options[:format] = 'json' }
+
+      it 'should return the check' do
+        json = JSON.parse(response.body)
+
+        expect(json['id']).to eq(check.id.to_s)
+        expect(json['value']).to eq('google.com')
+      end
     end
   end
 end

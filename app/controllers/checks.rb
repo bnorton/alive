@@ -17,7 +17,7 @@ class Checks < Application
   def update
     @check.update(params.permit(*Check.allows))
 
-    redirect_to @model
+    respond @check
   end
 
   private

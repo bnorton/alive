@@ -31,11 +31,11 @@ class Application < ActionController::Base
     end unless user.present?
   end
 
-  def respond
+  def respond(given=nil)
     if params[:format] == 'json' || headers['content-type'] == 'application/json'
-      render :json => @model.as_json
+      render :json => (given || @model).as_json
     else
-      redirect_to url_for(:controller => params[:controller], :action => 'show', :id => @model.id)
+      redirect_to url_for(:controller => @model.class.name.underscore.pluralize, :action => 'show', :id => @model.id)
     end
 
   end
