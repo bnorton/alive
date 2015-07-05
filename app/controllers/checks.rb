@@ -6,7 +6,7 @@ class Checks < Application
   end
 
   def create
-    @check = @test.checks.new
+    @check = @model.checks.new
 
     update
   end
@@ -17,18 +17,18 @@ class Checks < Application
   def update
     @check.update(params.permit(*Check.allows))
 
-    redirect_to @test
+    redirect_to @model
   end
 
   private
 
   def load_test
-    @test = user.tests.find(params[:test_id])
+    @model = user.tests.find(params[:test_id])
   end
 
   def load_model
     @check = Check.find(params[:id])
-    @test = user.tests.find(@check.test_id) # security
+    @model = user.tests.find(@check.test_id) # security
   end
 
 end

@@ -113,6 +113,19 @@ class Model
       id
     end
 
+    def as_json
+      hash = {}
+      hash[:id] = self.id.to_s
+      hash[:created_at] = self.created_at
+      hash[:updated_at] = self.updated_at
+
+      self.class.allows.each do |name|
+        hash[name] = send(name)
+      end
+
+      hash
+    end
+
     def __generate_defaults
       self.send(:defaults_before_create) if self.respond_to?(:defaults_before_create, true)
 

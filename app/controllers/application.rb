@@ -14,7 +14,7 @@ class Application < ActionController::Base
   end
 
   def cookie(name)
-    cookies.encrypted["user:#{name}"]
+    cookies.encrypted["user:#{name}"] || headers["x-user-#{name}"]
   end
 
   def user
@@ -29,5 +29,14 @@ class Application < ActionController::Base
           :params => params
         }.to_json
     end unless user.present?
+  end
+
+  def respond
+    if params[:format] == 'json' || headers['content-type'] == 'application/json'
+      render :json => @model.as_json
+    else
+      redirect_to url_for(:controller => params[:controller], :action => 'show', :id => @model.id)
+    end
+
   end
 end

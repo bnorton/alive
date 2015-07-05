@@ -42,6 +42,18 @@ describe Tests do
       expect(test.breed).to eq('post')
       expect(test.url).to eq('test-url')
     end
+
+    describe '.json' do
+      before { options[:format] = 'json' }
+
+      it 'should return the test' do
+        json = JSON.parse(response.body)
+
+        test = Test.last
+        expect(json['id']).to eq(test.id.to_s)
+        expect(json['name']).to eq('Test Name')
+      end
+    end
   end
 
   describe '#show' do
@@ -81,6 +93,17 @@ describe Tests do
       expect(test.name).to eq('New Name')
       expect(test.breed).to eq('head')
       expect(test.url).to eq('new-url')
+    end
+
+    describe '.json' do
+      before { options[:format] = 'json' }
+
+      it 'should return the test' do
+        json = JSON.parse(response.body)
+
+        expect(json['id']).to eq(test.id.to_s)
+        expect(json['name']).to eq('New Name')
+      end
     end
   end
 end

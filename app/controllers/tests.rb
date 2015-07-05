@@ -9,7 +9,7 @@ class Tests < Application
   end
 
   def create
-    @test = user.tests.new
+    @model = user.tests.new
 
     update
   end
@@ -21,15 +21,15 @@ class Tests < Application
   end
 
   def update
-    @test.update(params.permit(*Test.allows))
+    @model.update(params.permit(*Test.allows))
 
-    redirect_to test_path(@test)
+    respond
   end
 
   private
 
   def load_test
-    @test = user.tests.find(params[:id])
+    @model = user.tests.find(params[:id])
   end
 
 end
