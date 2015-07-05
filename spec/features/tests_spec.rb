@@ -42,7 +42,7 @@ describe :tests, :js => true do
         click_link 'Edit'
       end
 
-      expect(page).to have_content('API Test 2')
+      expect(page).to have_content('Update Test')
       expect(current_url).to match(/tests\/#{test2.id}\/edit$/)
     end
 
@@ -53,6 +53,17 @@ describe :tests, :js => true do
 
       expect(page).to have_content('API Test 2')
       expect(current_url).to match(/tests\/#{test2.id}$/)
+    end
+
+    it 'adds a check' do
+      visit '/tests'
+
+      within "#test-#{test2.id}" do
+        click_link 'Add a Check'
+      end
+
+      expect(page).to have_content('Create Check')
+      expect(current_url).to match(/tests\/#{test2.id}\/checks\/new/)
     end
 
     describe 'when there are checks' do
@@ -146,8 +157,16 @@ describe :tests, :js => true do
           click_link 'Edit'
         end
 
-        expect(page).to have_content('Response time is less than 980ms')
+        expect(page).to have_content('Update Check')
+        expect(find('input[name=value]').value).to eq('980')
         expect(current_url).to match(/checks\/#{check2.id}\/edit/)
+      end
+
+      it 'adds a check' do
+        click_link 'Add a Check'
+
+        expect(page).to have_content('Create Check')
+        expect(current_url).to match(/tests\/#{test.id}\/checks\/new/)
       end
     end
   end
@@ -157,6 +176,8 @@ describe :tests, :js => true do
 
     it 'updates the test' do
       visit "/tests/#{test.id}/edit"
+
+      expect(page).to have_content('Update Test')
 
       fill_in 'name', :with => 'Test Name YAY'
       fill_in 'url', :with => 'https://example.com/'

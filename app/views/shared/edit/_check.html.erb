@@ -1,0 +1,64 @@
+<div class="col-md-3"></div>
+<div class="panel panel-default col-md-6">
+  <% action = check.persisted? ? url_for(:controller => 'checks', :action => 'update', :id => @check.id) : url_for(:controller => 'checks', :action => 'create') %>
+  <form class="form-horizontal" method="post" action="<%= action %>">
+    <fieldset>
+      <legend><%= check.persisted? ? 'Update' : 'Create' %> Check</legend>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="kind">Kind of check</label>
+        <div class="col-md-9">
+          <select id="kind" name="kind" class="form-control">
+            <% Kind::Check::VALUES.each do |value| %>
+              <option value="<%= value %>"<%= check.kind == value ? ' selected' : '' %>><%= value.titleize %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="textinput">Response key</label>
+        <div class="col-md-9">
+          <input id="key" name="key" type="text" value="<%= check.key %>" placeholder="Location or user.id" class="form-control input-md">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="value">Response value</label>
+        <div class="col-md-9">
+          <input id="value" name="value" type="text" value="<%= check.value %>" placeholder="https://alive.trychameleon.com/" class="form-control input-md" required="">
+        </div>
+      </div>
+
+      <input type="hidden" name="_method" value="<%= check.persisted? ? 'patch' : 'post' %>">
+      <%= csrf_form_tags %>
+
+      <div class="form-group pull-right">
+        <label class="control-label" for="save"></label>
+        <div class="col-md-1">
+          <button id="save" name="save" class="btn btn-primary"><%= check.persisted? ? 'Save' : 'Create' %></button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    var $key = $('#key').closest('.form-group'),
+      keys = ['<%= Kind::Check::HEADER %>', '<%= Kind::Check::BODY %>'],
+      onChange = function() {
+        var $sel = $(this).find('option:selected');
+
+        if(keys.indexOf($sel.attr('value')) >= 0) {
+          $key.show();
+        } else {
+          $key.hide();
+        }
+      };
+
+    $('select').on('change', onChange);
+
+    onChange();
+  });
+</script>

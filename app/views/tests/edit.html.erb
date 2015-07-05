@@ -2,7 +2,7 @@
 <div class="panel panel-default col-md-6">
   <form class="form-horizontal" method="post" action="<%= url_for(:controller => 'tests', :action => 'update', :id => @test.id) %>">
     <fieldset>
-      <legend>Edit <%= @test.name || "API Test #{@test.index}" %></legend>
+      <legend>Update Test</legend>
 
       <div class="form-group">
         <label class="col-md-3 control-label" for="textinput">Test Name</label>

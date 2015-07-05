@@ -31,6 +31,7 @@
   </div>
   <% checks = test.checks.to_a %>
   <a class="btn test-toggle test-checks-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-checks">Checks (<%= checks.size %>) <span class="caret"></span></a>
+  <a class="btn test-toggle test-checks-new" href="<%= new_test_check_path(test) %>"><span class="glyphicon glyphicon-plus"></span><span>Add a Check</span></a>
 
   <div class="test-checks collapse in">
     <ul class="test-check-items list-group">
@@ -42,4 +43,6 @@
       <% end %>
     </ul>
   </div>
+
+
 </li>
