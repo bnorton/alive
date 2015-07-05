@@ -96,7 +96,7 @@ describe :tests, :js => true do
         )
       end
 
-      it 'should expand the info' do
+      it 'expands the info' do
         visit '/tests'
 
         within "#test-#{test1.id}" do
@@ -137,6 +137,17 @@ describe :tests, :js => true do
           expect(page).to have_content('Status equals 296')
           expect(page).to have_content('Response time is less than 980ms')
         end
+      end
+
+      it 'edits a check' do
+        within "#check-#{check2.id}" do
+          expect(page).to have_content('Response time is less than 980ms')
+
+          click_link 'Edit'
+        end
+
+        expect(page).to have_content('Response time is less than 980ms')
+        expect(current_url).to match(/checks\/#{check2.id}\/edit/)
       end
     end
   end

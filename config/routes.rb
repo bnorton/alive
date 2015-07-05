@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :sessions, :only => [:create]
   resources :dashboard, :only => [:index]
   resources :tests, :only => [:index, :show, :edit, :update]
+  resources :checks, :only => [:edit, :update]
 
 end

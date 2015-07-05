@@ -34,10 +34,10 @@ describe Tests do
   end
 
   describe '#update' do
-    let(:options) { {  :name => 'New Name', :url => 'new-url', :breed => 'head' } }
+    let(:options) { { :name => 'New Name', :url => 'new-url', :breed => 'head' } }
     let(:test) { create(:test, :user => user) }
 
-    let(:response) { get :update, :id => test.id, **options }
+    let(:response) { patch :update, :id => test.id, **options }
 
     it 'should redirect to the test' do
       expect(response).to redirect_to(test_path(test))

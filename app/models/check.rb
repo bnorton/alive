@@ -3,6 +3,8 @@ class Check < Model
     Integer => { :index => :i },
     Enum => { :kind => Kind::Check::VALUES }
 
+  allow :key, :value, :kind
+
   validates :test_id, :presence => true
 
   belongs_to :test

@@ -35,7 +35,10 @@
   <div class="test-checks collapse in">
     <ul class="test-check-items list-group">
       <% checks.each do |check| %>
-        <li id="check-<%= check.id %>" class="list-group-item"><%= check.decorator.new(check) %></li>
+        <li id="check-<%= check.id %>" class="list-group-item">
+          <span><%= check.decorator.new(check) %></span>
+          <span class="pull-right check-edit"><a href="<%= edit_check_path(check) %>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></span>
+        </li>
       <% end %>
     </ul>
   </div>
