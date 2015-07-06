@@ -22,6 +22,12 @@ describe User do
 
         expect(subject.token).to match(/^[0-9a-zA-Z]{4,24}$/)
       end
+
+      it 'should notify via email' do
+        subject.save
+
+        expect(subject.notify_email).to eq(true)
+      end
     end
   end
 

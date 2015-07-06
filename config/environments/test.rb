@@ -13,4 +13,10 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   config.assets.debug = true
+
+  config.action_mailer.delivery_method = :test
+
+  ENV['SENDGRID_USERNAME'] = 'test@example.com'
+  ENV['SLACK_URL'] = 'http://slack-webhook-url.com'
+  ENV['SLACK_CHANNEL'] = '#slack_channel'
 end

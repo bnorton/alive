@@ -13,7 +13,7 @@ gem 'clockwork'
 
 gem 'typhoeus'
 
-# gem 'slack-notifier'
+gem 'slack-notifier'
 # gem 'hookly', '~> 0.9'
 
 gem 'jquery-rails'

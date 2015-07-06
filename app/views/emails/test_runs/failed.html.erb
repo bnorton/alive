@@ -1,0 +1,4 @@
+<p>Failed Test: <%= @test.name %></p>
+<p><%= @test.breed.upcase %> <%= @test.url %> returned status <%= @run.code %> in <%= @run.duration.to_i %>ms</p>
+<p>Failed Check: <%= @run.failed_check.decorator.new(@run.failed_check) %></p>
+<p>Team Alive</p>

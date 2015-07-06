@@ -22,5 +22,14 @@ Rails.application.configure do
 
   config.active_support.deprecation = :notify
 
-  config.log_formatter = ::Logger::Formatter.new
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => 'smtp.sendgrid.com',
+    :port => 587,
+    :enable_starttls_auto => true,
+    :authentication => :plain,
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'heroku.com',
+  }
 end

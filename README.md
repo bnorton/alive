@@ -16,9 +16,14 @@ git clone git@github.com:{{username}}/alive.git
 heroku create {{username}}-alive
 ```
 
+Required:
 - Add a MongoDB database => `heroku addons:create mongohq`
 - Add a username and password for the new mongo database
 - Add a Redis database => `heroku addons:create heroku-redis:hobby-dev`
+
+Optional:
+- Add a SendGrid account => `heroku addons:create sendgrid:starter`
+- Add a new Incoming WebHook integration to Slack and add the `SLACK_URL` and the `SLACK_CHANNEL` to the heroku config
 
 ```bash
 heroku config # and grab your mongodb url

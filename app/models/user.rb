@@ -1,6 +1,7 @@
 class User < Model
   attrs String => { :email => :e, :password => :p, :salt => :s, :token => :t },
-    Integer => { :test_index => :ti }
+    Integer => { :test_index => :ti },
+    Mongoid::Boolean => { :notify_email => :ne, :notify_slack => :ns }
 
   validates :email, :password, :presence => true
 
@@ -19,6 +20,7 @@ class User < Model
 
   def defaults_before_create
     self.token = Base62.token
+    self.notify_email = true
   end
 
 end

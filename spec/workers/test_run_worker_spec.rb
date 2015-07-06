@@ -56,7 +56,7 @@ describe TestRunWorker do
       expect(test_run.headers).to eq('{"header":"foo","other":1}')
     end
 
-    it 'should cache the last code and last duration on the test' do
+    it 'should cache the last_* on the test' do
       allow(Request).to receive(:run).with(test) do
         response.code = 401
         response.duration = 44.56
@@ -70,6 +70,12 @@ describe TestRunWorker do
       expect(test.last_code).to eq(401)
       expect(test.last_duration).to eq(44.56)
       expect(test.last_at).to be_within(1.second).of(Time.now)
+    end
+
+    it 'should not notify' do
+      expect(Notify).not_to receive(:completed)
+
+      perform
     end
 
     describe 'when there are checks' do
@@ -119,10 +125,9 @@ describe TestRunWorker do
 
       describe 'when one of the checks fail' do
         before do
+          @klass, @check = *[[CheckHeader, checks.second], [CheckBody, checks.third]].sample
 
-          klass, @check = *[[CheckHeader, checks.second], [CheckBody, checks.third]].sample
-
-          allow(klass).to receive(:new).and_return(decorator = double(:decorator, :call => false))
+          allow(@klass).to receive(:new).and_return(decorator = double(:decorator, :call => false))
           allow(CheckStatus).to receive(:new).and_return(decorator = double(:decorator, :call => true))
         end
 
@@ -144,6 +149,29 @@ describe TestRunWorker do
           expect(CheckTime).not_to receive(:new)
 
           perform
+        end
+
+        it 'should notify failure' do
+          expect(Notify).to receive(:completed).with(:failed, test_run)
+
+          perform
+        end
+
+        describe 'when it works again' do
+          before do
+            perform
+
+            allow(@klass).to receive(:new).and_return(decorator = double(:decorator, :call => true))
+          end
+
+          it 'should notify success' do
+            expect(Notify).to receive(:completed) do |type, run|
+              expect(type).to be(:passed)
+              expect(run).to eq(test_run)
+            end
+
+            subject.perform(test_run)
+          end
         end
       end
     end

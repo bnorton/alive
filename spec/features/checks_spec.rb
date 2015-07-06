@@ -6,7 +6,7 @@ describe :checks, :js => true do
   before { sign_in user }
 
   describe '#create' do
-    let(:test) { create(:test, :user => user) }
+    let!(:test) { create(:test, :user => user) }
     let(:check) { create(:check, :test => test) }
 
     it 'creates the check' do
