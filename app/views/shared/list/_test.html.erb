@@ -4,7 +4,7 @@
       <span class="glyphicon glyphicon-<%= test.last_success ? 'ok text-success' : 'remove text-danger' %>"></span>
       <span class="test-title"><%= link_to (test.name || "API Test #{test.index}"), test_path(test) %></span>
       <!-- RHS -->
-      <span class="pull-right test-edit"><a href="<%= edit_test_path(test) %>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></span>
+      <span class="pull-right test-edit"><a href="<%= edit_test_path(test) %>">Edit</a></span>
       <span class="pull-right test-ago"><%= test.last_at && "#{time_ago_in_words(test.last_at)} ago" %></span>
       <span class="pull-right test-time"><%= test.last_duration.to_i %>ms</span>
       <span class="pull-right test-code label label-<%= test.last_success ? 'success' : 'danger' %>">Status <%= test.last_code %></span>
@@ -38,7 +38,7 @@
       <% checks.each do |check| %>
         <li id="check-<%= check.id %>" class="list-group-item">
           <span><%= check.decorator.new(check) %></span>
-          <span class="pull-right check-edit"><a href="<%= edit_check_path(check) %>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></span>
+          <span class="pull-right check-edit"><a href="<%= edit_check_path(check) %>">Edit</a></span>
         </li>
       <% end %>
     </ul>
