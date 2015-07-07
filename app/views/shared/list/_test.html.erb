@@ -13,6 +13,7 @@
       <!-- LHS -->
       <span class="test-breed"><%= test.breed.upcase %></span>
       <span class="test-url"><%= test.url %></span>
+      <span class="test-every">every&nbsp;<%= distance_of_time_in_words(test.interval).gsub('about ', '') %></span>
     </div>
   </div>
   <div class="test-info">
