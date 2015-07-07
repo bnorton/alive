@@ -10,11 +10,11 @@ describe TestWorker do
 
   describe '#perform' do
     it 'should set the next run time' do
-      test.update(:at => 4.minutes.from_now)
+      test.update(:at => 4.minutes.ago)
       perform
 
       test.reload
-      expect(test.at).to be_within(1.second).of((6.hours+4.minutes).from_now)
+      expect(test.at).to be_within(1.second).of((6.hours-4.minutes).from_now)
     end
 
     it 'should create a test run' do
@@ -29,6 +29,19 @@ describe TestWorker do
       test_run = TestRun.last
       expect(test_run.user).to eq(user)
       expect(test_run.test).to eq(test)
+    end
+
+    describe 'when the last run time is in the future' do
+      before do
+        test.update(:at => 4.minutes.from_now)
+      end
+
+      it 'should set it to the interval after now' do
+        perform
+
+        test.reload
+        expect(test.at).to be_within(1.second).of(6.hours.from_now)
+      end
     end
   end
 end
