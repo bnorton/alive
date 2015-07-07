@@ -6,7 +6,6 @@ class TestWorker < Worker
 
     test.update(:at => test.at+test.interval)
 
-    run = TestRun.create(:user => test.user, :test => test)
-    TestRunWorker.perform_async(run.id)
+    TestRun.create(:user => test.user, :test => test)
   end
 end

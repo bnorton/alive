@@ -9,6 +9,14 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More</a>
         <ul class="dropdown-menu">
           <li><a href="<%= edit_test_path(test) %>">Edit</a></li>
+          <li>
+            <a>
+              <form action="<%= test_test_runs_path(test) %>" method="post">
+                <%= csrf_form_tags %>
+                <button class="btn btn-link" role="link" name="run_now">Run Now</button>
+              </form>
+            </a>
+          </li>
         </ul>
       </div>
       <span class="pull-right test-ago"><%= test.last_at && "#{time_ago_in_words(test.last_at)} ago" %></span>

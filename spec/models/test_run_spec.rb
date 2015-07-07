@@ -17,6 +17,17 @@ describe TestRun do
 
   describe '#save' do
     describe 'on create' do
+      it 'should run at now' do
+        subject.save
+
+        expect(subject.run_at).to be_within(1.second).of(Time.now)
+      end
+
+      it 'should send the job to process the run' do
+        expect(TestRunWorker).to receive(:perform_async).with(subject.id)
+
+        subject.save
+      end
     end
   end
 end

@@ -47,6 +47,24 @@ describe :tests, :js => true do
       expect(current_url).to match(/tests\/#{test2.id}\/edit$/)
     end
 
+    it 'runs a test' do
+      visit '/tests'
+
+      expect(TestRun.count).to eq(0)
+
+      within "#test-#{test2.id}" do
+        click_link 'More'
+        click_button 'Run Now'
+      end
+
+      expect(current_url).to match(/tests\/#{test2.id}$/)
+
+      expect(TestRun.count).to eq(1)
+
+      test_run = TestRun.last
+      expect(test_run.test).to eq(test2)
+    end
+
     it 'shows a test' do
       visit '/tests'
 

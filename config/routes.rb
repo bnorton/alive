@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :tests, :only => [:index, :new, :create, :show, :edit, :update] do
     resources :checks, :only => [:new, :create]
+    resources :test_runs, :only => [:create]
   end
 
 end
