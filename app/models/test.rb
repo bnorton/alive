@@ -8,7 +8,7 @@ class Test < Model
   attrs Time => { :last_at => :la }, Integer => { :last_code => :lc }, # Cache the most recent TestRun
     Float => { :last_duration => :ld }, Mongoid::Boolean => { :last_success => :ls }
 
-  allow :name, :breed, :url
+  allow :name, :interval, :breed, :url, :headers, :body
 
   validates :user_id, :url, :presence => true
 

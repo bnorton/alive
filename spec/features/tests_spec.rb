@@ -130,7 +130,8 @@ describe :tests, :js => true do
 
       fill_in 'name', :with => 'Test Name YAY'
       fill_in 'url', :with => 'https://example.com/'
-      select 'OPTIONS', :from => 'breed'
+      select '15 Minutes', :from => 'interval'
+      select 'POST', :from => 'breed'
 
       click_button 'Create'
 
@@ -140,7 +141,8 @@ describe :tests, :js => true do
       expect(test.user).to eq(user)
       expect(test.name).to eq('Test Name YAY')
       expect(test.url).to eq('https://example.com/')
-      expect(test.breed).to eq('options')
+      expect(test.interval).to eq(15.minutes.to_i)
+      expect(test.breed).to eq('post')
     end
   end
 
