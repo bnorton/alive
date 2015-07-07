@@ -39,6 +39,7 @@ describe :tests, :js => true do
       visit '/tests'
 
       within "#test-#{test2.id}" do
+        click_link 'More'
         click_link 'Edit'
       end
 

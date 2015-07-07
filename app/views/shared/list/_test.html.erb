@@ -4,7 +4,13 @@
       <span class="glyphicon glyphicon-<%= test.last_success ? 'ok text-success' : 'remove text-danger' %>"></span>
       <span class="test-title"><%= link_to (test.name || "API Test #{test.index}"), test_path(test) %></span>
       <!-- RHS -->
-      <span class="pull-right test-edit"><a href="<%= edit_test_path(test) %>">Edit</a></span>
+
+      <div class="pull-right test-edit dropdown list-inline">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More</a>
+        <ul class="dropdown-menu">
+          <li><a href="<%= edit_test_path(test) %>">Edit</a></li>
+        </ul>
+      </div>
       <span class="pull-right test-ago"><%= test.last_at && "#{time_ago_in_words(test.last_at)} ago" %></span>
       <span class="pull-right test-time"><%= test.last_duration.to_i %>ms</span>
       <span class="pull-right test-code label label-<%= test.last_success ? 'success' : 'danger' %>">Status <%= test.last_code %></span>
