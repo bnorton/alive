@@ -1,0 +1,38 @@
+<li id="test_run-<%= test_run.id %>" class="list-group-item test_run-item">
+  <div>
+    <div class="test-top">
+      <% if test_run.code > 0 %>
+      <span class="glyphicon glyphicon-<%= test_run.failed_check_id ? 'remove text-danger' : 'ok text-success' %>"></span>
+      <span class="test-status"><%= test_run.failed_check_id ? 'Failed' : 'Passed' %></span>
+      <span class="test-at"><%= test_run.at && "#{time_ago_in_words(test_run.at)} ago" %></span>
+      <% else %>
+      <span class="test-status">Pending</span>
+      <% end %>
+
+      <!-- RHS -->
+      <span class="pull-right test-time"><%= test_run.duration.zero? ? '' : "#{test_run.duration.to_i}ms"  %></span>
+      <span class="pull-right test-code label label-<%= test_run.failed_check_id ? 'danger' : 'success' %>">Status <%= test_run.code > 0 ? test_run.code : '-' %></span>
+    </div>
+  </div>
+  <div class="test-info">
+    <% if test_run.headers.present? %>
+      <div>
+        <a class="btn test-toggle test-headers-toggle" data-toggle="collapse" data-target="#test_run-<%= test_run.id %> .test-headers">Headers <span class="caret"></span></a>
+        <div class="test-headers collapse">
+          <code>
+          <% JSON.parse(test_run.headers).map {|(k,v)| "#{k}: #{v}" }.each do |header| %>
+            <%= header %>
+            <br>
+          <% end %>
+          </code>
+        </div>
+      </div>
+    <% end %>
+    <% if test_run.body.present? %>
+      <div>
+        <a class="btn test-toggle test-body-toggle" data-toggle="collapse" data-target="#test_run-<%= test_run.id %> .test-body">Body <span class="caret"></span></a>
+        <div class="test-body collapse"><code><%= test_run.body %></code></div>
+      </div>
+    <% end %>
+  </div>
+</li>

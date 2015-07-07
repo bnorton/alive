@@ -7,5 +7,13 @@
     <div>
       <%= render :partial => 'shared/list/test', :locals => { :test => @model } %>
     </div>
+    <h3 class="title">Test Runs</h3>
+    <div>
+      <ul class="test_runs-index list-group">
+      <% @model.test_runs.limit(10).order(:id => -1).each do |test_run| %>
+        <%= render :partial => 'shared/list/test_run', :locals => { :test_run => test_run } %>
+      <% end %>
+      </ul>
+    </div>
   </div>
 </div>

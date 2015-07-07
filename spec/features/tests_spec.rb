@@ -212,6 +212,44 @@ describe :tests, :js => true do
         expect(current_url).to match(/tests\/#{test.id}\/checks\/new/)
       end
     end
+
+    describe 'when there are test runs' do
+      let!(:test_run1) { create(:test_run, :user => user, :test => test, :at => 5.minutes.ago, :code => '202', :duration => 409, :headers => {'X-Processing-Latency' => 12, 'X-Run-By' => '1a'}.to_json) }
+      let!(:test_run2) { create(:test_run, :user => user, :test => test) }
+
+      it 'shows the test runs' do
+        visit "/tests/#{test.id}"
+
+        within "#test_run-#{test_run1.id}" do
+          expect(page).to have_content('Passed 5 minutes ago')
+          expect(page).to have_content('Status 202')
+          expect(page).to have_content('409ms')
+
+          find('a.test-headers-toggle').click
+          expect(page).to have_content('X-Processing-Latency: 12')
+          expect(page).to have_content('X-Run-By: 1a')
+        end
+
+        within "#test_run-#{test_run2.id}" do
+          expect(page).to have_content('Pending')
+          expect(page).to have_content('Status -')
+        end
+
+        test_run2.update(:code => 301, :duration => 509, :at => Time.now, :body => 'raw HTML body')
+
+        # TODO make hookly callback
+        visit current_url
+
+        within "#test_run-#{test_run2.id}" do
+          expect(page).to have_content('Passed less than a minute ago')
+          expect(page).to have_content('Status 301')
+          expect(page).to have_content('509ms')
+
+          find('a.test-body-toggle').click
+          expect(page).to have_content('raw HTML body')
+        end
+      end
+    end
   end
 
   describe '#edit' do

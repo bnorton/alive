@@ -29,6 +29,7 @@ class Model
       (vals = attributes.delete(Array))   && Helpers.parse_and_add(self, vals, :type => Array, :default => -> { [] })
       (hash = attributes.delete(Hash))    && Helpers.parse_and_add(self, hash, :type => Hash, :default => -> { {} })
       (ints = attributes.delete(Integer)) && Helpers.parse_and_add(self, ints, :type => Integer, :default => 0)
+      (ints = attributes.delete(Float))   && Helpers.parse_and_add(self, ints, :type => Float, :default => 0.0)
 
       Helpers.enum_fields(self, attributes)
       Helpers.string_fields(self, attributes)

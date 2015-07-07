@@ -34,7 +34,14 @@
     <% if test.headers %>
       <div>
         <a class="btn test-toggle test-headers-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-headers">Headers <span class="caret"></span></a>
-        <div class="test-headers collapse"><code><%= JSON.parse(test.headers).map {|(k,v)| "#{k}: #{v}" }.join('<br>') %></code></div>
+        <div class="test-headers collapse">
+          <code>
+            <% JSON.parse(test.headers).map {|(k,v)| "#{k}: #{v}" }.each do |header| %>
+              <%= header %>
+              <br>
+            <% end %>
+          </code>
+        </div>
       </div>
     <% end %>
     <% if test.body %>
