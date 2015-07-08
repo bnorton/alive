@@ -22,7 +22,7 @@ class Request
   end
 
   def self.run_browser(test)
-    session = Capybara::Session.new(:poltergeist)
+    session = Poltergeist.new.session
     session.visit(test.url)
 
     Response.from_browser(session)

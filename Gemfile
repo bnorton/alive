@@ -13,6 +13,8 @@ gem 'clockwork'
 gem 'bugsnag'
 
 gem 'typhoeus'
+gem 'capybara'
+gem 'poltergeist'
 
 gem 'slack-notifier'
 # gem 'hookly', '~> 0.9'
@@ -34,8 +36,6 @@ group :test do
   gem 'rspec-its'
   gem 'mock_redis'
   gem 'webmock'
-  gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'poltergeist'
   gem 'factory_girl'
 end

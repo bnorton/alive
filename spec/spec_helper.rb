@@ -13,22 +13,9 @@ require 'mock_redis'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f }
 
-Capybara.register_driver :poltergeist do |app|
-  require 'capybara/poltergeist'
+change_driver = ->(name) { Capybara.current_driver = Capybara.javascript_driver = name }
 
-  # See: https://github.com/ariya/phantomjs/issues/12234
-  Capybara::Poltergeist::Driver.new(app,
-    :timeout => 10,
-    :phantomjs_logger => StringIO.new(''), # silence JavaScript console.log
-    :phantomjs_options => %w(--load-images=false --ignore-ssl-errors=true),
-  )
-end
-
-(change_driver = ->(name) { Capybara.current_driver = Capybara.javascript_driver = name }).(:poltergeist)
-
-unless /RubyMine/ === ENV['RUBYLIB']
-  Rails.logger.level = Mongoid.logger.level = 4
-end
+Rails.logger.level = Mongoid.logger.level = 4 unless /RubyMine/ === ENV['RUBYLIB']
 
 silence_warnings { Redis = MockRedis }
 
