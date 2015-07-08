@@ -12,6 +12,8 @@ describe :checks, :js => true do
     it 'creates the check' do
       visit "/tests/#{test.id}/checks/new"
 
+      should_be_on_the(:'checks/new')
+
       expect(page).to have_content('Create Check')
 
       select 'Header', :from => 'kind'
@@ -36,6 +38,8 @@ describe :checks, :js => true do
 
     it 'updates the check' do
       visit "/checks/#{check.id}/edit"
+
+      should_be_on_the(:edit)
 
       expect(page).to have_content('Update Check')
 

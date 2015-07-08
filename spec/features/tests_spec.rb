@@ -145,6 +145,8 @@ describe :tests, :js => true do
     it 'creates the test' do
       visit '/tests/new'
 
+      should_be_on_the(:'tests/new')
+
       expect(page).to have_content('Create Test')
 
       fill_in 'name', :with => 'Test Name YAY'
@@ -170,6 +172,8 @@ describe :tests, :js => true do
 
     it 'shows the test information' do
       visit "/tests/#{test.id}"
+
+      should_be_on_the(:tests)
 
       expect(page).to have_content('API Test 1')
       expect(page).to have_content('GET http://my-site.com')
@@ -257,6 +261,8 @@ describe :tests, :js => true do
 
     it 'updates the test' do
       visit "/tests/#{test.id}/edit"
+
+      should_be_on_the(:edit)
 
       expect(page).to have_content('Update Test')
 

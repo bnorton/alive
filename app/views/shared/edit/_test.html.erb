@@ -1,3 +1,5 @@
+<%= render :partial => 'shared/top' %>
+
 <div class="col-md-3"></div>
 <div class="panel panel-default col-md-6">
   <% action = test.persisted? ? url_for(:controller => 'tests', :action => 'update', :id => test.id) : url_for(:controller => 'tests', :action => 'create') %>
