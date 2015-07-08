@@ -4,6 +4,7 @@ class CheckTime < Decorator
   end
 
   def call(response)
-    check.value.to_f >= response.duration
+    self.response = response
+    self.success = check.value.to_f >= response.duration
   end
 end

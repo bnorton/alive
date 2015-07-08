@@ -4,7 +4,8 @@ class CheckBody < Decorator
   end
 
   def call(response)
-    case body = response.body
+    self.response = response
+    self.success = case body = response.body
     when String
       body[check.value.to_s].present?
     when Hash

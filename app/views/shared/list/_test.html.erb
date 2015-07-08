@@ -9,6 +9,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More</a>
         <ul class="dropdown-menu">
           <li><a href="<%= edit_test_path(test) %>">Edit</a></li>
+          <li><a href="<%= new_test_check_path(test) %>">Add a Check</a></li>
           <li>
             <a>
               <form action="<%= test_test_runs_path(test) %>" method="post">

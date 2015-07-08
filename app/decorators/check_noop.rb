@@ -3,7 +3,8 @@ class CheckNoop < Decorator
     "Check nothing - noop"
   end
 
-  def call(*)
-    true
+  def call(response, *)
+    self.response = response
+    self.success = true
   end
 end

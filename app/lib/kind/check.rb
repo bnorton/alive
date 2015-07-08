@@ -5,7 +5,10 @@ module Kind
     HEADER = 'header'
     BODY = 'body'
     TIME = 'time'
+    VISIT = 'visit'
+    FILL = 'fill'
+    ACTION = 'action'
 
-    VALUES = [NOOP, STATUS, HEADER, BODY, TIME].map!(&:freeze).freeze
+    VALUES = [NOOP, STATUS, HEADER, BODY, TIME, VISIT, FILL, ACTION].map!(&:freeze).freeze
   end
 end

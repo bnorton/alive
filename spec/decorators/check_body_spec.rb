@@ -5,7 +5,7 @@ describe CheckBody do
   let(:value) { 'foo-bar' }
   let(:body) { '<div class="foo-bar foo-baz"></div>' }
   let(:check) { create(:check, :kind => Kind::Check::BODY, :key => key, :value => value) }
-  let(:response) { Response.new.tap {|r| r.body = body } }
+  let(:response) { Response.from_api.tap {|r| r.body = body } }
 
   subject { check.decorator.new(check) }
 
@@ -26,15 +26,25 @@ describe CheckBody do
   describe '#call' do
     let(:call) { subject.call(response) }
 
-    it 'should be true' do
-      expect(call).to eq(true)
+    it 'should be successful' do
+      call
+
+      expect(subject.success?).to eq(true)
+    end
+
+    it 'should have the response' do
+      call
+
+      expect(subject.response).to be(response)
     end
 
     describe 'when the value is not found' do
       let(:value) { 'foo-foo' }
 
-      it 'should be false' do
-        expect(call).to eq(false)
+      it 'should not be successful' do
+        call
+
+        expect(subject.success?).to eq(false)
       end
     end
 
@@ -43,15 +53,19 @@ describe CheckBody do
       let(:value) { '202' }
       let(:body) { { 'code' => '202', 'user' => {'id' => 9, 'name' => { 'first' => 'John', 'last' => 'Doe' } } } }
 
-      it 'should be true' do
-        expect(call).to eq(true)
+      it 'should be successful' do
+        call
+
+        expect(subject.success?).to eq(true)
       end
 
       describe 'when the value is different' do
         let(:value) { '301' }
 
-        it 'should be false' do
-          expect(call).to eq(false)
+        it 'should not be successful' do
+          call
+
+          expect(subject.success?).to eq(false)
         end
       end
 
@@ -62,8 +76,10 @@ describe CheckBody do
             let(:key) { k }
             let(:value) { v }
 
-            it 'should be true' do
-              expect(call).to eq(true)
+            it 'should be successful' do
+              call
+
+              expect(subject.success?).to eq(true)
             end
           end
         end
@@ -73,8 +89,10 @@ describe CheckBody do
             let(:key) { k }
             let(:value) { v }
 
-            it 'should be false' do
-              expect(call).to eq(false)
+            it 'should not be successful' do
+              call
+
+              expect(subject.success?).to eq(false)
             end
           end
         end

@@ -4,6 +4,7 @@ class CheckHeader < Decorator
   end
 
   def call(response)
-    response.headers[check.key] == check.value
+    self.response = response
+    self.success = response.headers[check.key] == check.value
   end
 end

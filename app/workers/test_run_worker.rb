@@ -7,7 +7,11 @@ class TestRunWorker < Worker
     response = Request.run(test)
 
     failed_check = test.checks.each.find do |check|
-      !check.decorator.new(check).call(response)
+      decorator = check.decorator.new(check)
+      decorator.call(response)
+      response = decorator.response
+
+      !decorator.success?
     end
 
     test.update(:last_code => response.code, :last_duration => response.duration, :last_success => !failed_check.try(:id), :last_at => Time.now)

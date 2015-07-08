@@ -104,5 +104,32 @@ describe Request do
         end
       end
     end
+
+    describe 'for a browser test' do
+      let!(:session) { instance_double(Capybara::Session, :visit => nil) }
+
+      before do
+        test.style = 'browser'
+
+        allow(Capybara::Session).to receive(:new).and_return(session)
+      end
+
+      it 'should open a capybara session' do
+        expect(Capybara::Session).to receive(:new).with(:poltergeist).and_return(session)
+
+        run
+      end
+
+      it 'should visit the url' do
+        expect(session).to receive(:visit).with('http://foo.bar/foo')
+
+        run
+      end
+
+      it 'should return the response' do
+        expect(run.class).to eq(Response)
+        expect(run.raw).to eq(session)
+      end
+    end
   end
 end

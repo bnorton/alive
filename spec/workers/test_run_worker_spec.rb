@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TestRunWorker do
   let(:test) { create(:test) }
   let(:test_run) { create(:test_run, :test => test) }
-  let!(:response) { Response.new(Typhoeus::Response.new) }
+  let!(:response) { Response.from_api(Typhoeus::Response.new) }
 
   let(:perform) { subject.perform(test_run) }
 
@@ -79,6 +79,7 @@ describe TestRunWorker do
     end
 
     describe 'when there are checks' do
+      let!(:decorator) { double(:decorator, :call => true, :success? => true, :response => response) }
       let!(:checks) { [
         create(:check, :test => test, :kind => Kind::Check::STATUS),
         create(:check, :test => test, :kind => Kind::Check::HEADER),
@@ -87,8 +88,6 @@ describe TestRunWorker do
       ] }
 
       before do
-        decorator = double(:decorator, :call => true)
-
         allow(CheckStatus).to receive(:new).and_return(decorator)
         allow(CheckHeader).to receive(:new).and_return(decorator)
         allow(CheckBody).to receive(:new).and_return(decorator)
@@ -96,39 +95,103 @@ describe TestRunWorker do
       end
 
       it 'should run the status check' do
-        expect(CheckStatus).to receive(:new).with(checks.first).and_return(decorator = double(:decorator))
-        expect(decorator).to receive(:call).with(response).and_return(true)
+        expect(CheckStatus).to receive(:new).with(checks.first).and_return(decorator = double(:decorator, :response => response))
+        expect(decorator).to receive(:call).with(response)
+        expect(decorator).to receive(:success?).and_return(true)
 
         perform
       end
 
       it 'should run the header check' do
-        expect(CheckHeader).to receive(:new).with(checks.second).and_return(decorator = double(:decorator))
-        expect(decorator).to receive(:call).with(response).and_return(true)
+        expect(CheckHeader).to receive(:new).with(checks.second).and_return(decorator = double(:decorator, :response => response))
+        expect(decorator).to receive(:call).with(response)
+        expect(decorator).to receive(:success?).and_return(true)
 
         perform
       end
 
       it 'should run the body check' do
-        expect(CheckBody).to receive(:new).with(checks.third).and_return(decorator = double(:decorator))
-        expect(decorator).to receive(:call).with(response).and_return(true)
+        expect(CheckBody).to receive(:new).with(checks.third).and_return(decorator = double(:decorator, :response => response))
+        expect(decorator).to receive(:call).with(response)
+        expect(decorator).to receive(:success?).and_return(true)
 
         perform
       end
 
       it 'should run the time check' do
-        expect(CheckTime).to receive(:new).with(checks.fourth).and_return(decorator = double(:decorator))
-        expect(decorator).to receive(:call).with(response).and_return(true)
+        expect(CheckTime).to receive(:new).with(checks.fourth).and_return(decorator = double(:decorator, :response => response))
+        expect(decorator).to receive(:call).with(response)
+        expect(decorator).to receive(:success?).and_return(true)
 
         perform
+      end
+
+      describe 'when performing a browser test' do
+        let!(:response) { Response.from_browser }
+
+        before do
+          test.update(:style => 'browser')
+
+          checks << [
+            create(:check, :test => test, :kind => Kind::Check::VISIT),
+            create(:check, :test => test, :kind => Kind::Check::FILL),
+            create(:check, :test => test, :kind => Kind::Check::ACTION),
+          ]
+          checks.flatten!
+
+          allow(CheckVisit).to receive(:new).and_return(decorator)
+          allow(CheckFill).to receive(:new).and_return(decorator)
+          allow(CheckAction).to receive(:new).and_return(decorator)
+        end
+
+        it 'should run the visit check' do
+          expect(CheckVisit).to receive(:new).with(checks[4]).and_return(decorator = double(:decorator, :response => response))
+          expect(decorator).to receive(:call).with(response)
+          expect(decorator).to receive(:success?).and_return(true)
+
+          perform
+        end
+
+        it 'should run the fill check' do
+          expect(CheckFill).to receive(:new).with(checks[5]).and_return(decorator = double(:decorator, :response => response))
+          expect(decorator).to receive(:call).with(response)
+          expect(decorator).to receive(:success?).and_return(true)
+
+          perform
+        end
+
+        it 'should run the fill check' do
+          expect(CheckAction).to receive(:new).with(checks[6]).and_return(decorator = double(:decorator, :response => response))
+          expect(decorator).to receive(:call).with(response)
+          expect(decorator).to receive(:success?).and_return(true)
+
+          perform
+        end
+      end
+
+      describe 'when a member changes the response' do
+        let!(:new_response) { Response.from_browser }
+        let!(:new_decorator) { double(:decorator4, :call => nil, :success? => true) }
+
+        before do
+          allow(CheckBody).to receive(:new).and_return(new_decorator)
+          expect(new_decorator).to receive(:response).and_return(new_response)
+        end
+
+        it 'should run the time check with new response' do
+          expect(CheckTime).to receive(:new).with(checks.fourth).and_return(decorator = double(:decorator, :call => nil, :success? => true, :response => response))
+          expect(decorator).to receive(:call).with(new_response)
+
+          perform
+        end
       end
 
       describe 'when one of the checks fail' do
         before do
           @klass, @check = *[[CheckHeader, checks.second], [CheckBody, checks.third]].sample
 
-          allow(@klass).to receive(:new).and_return(decorator = double(:decorator, :call => false))
-          allow(CheckStatus).to receive(:new).and_return(decorator = double(:decorator, :call => true))
+          allow(@klass).to receive(:new).and_return(decorator = double(:decorator1, :call => nil, :success? => false, :response => response))
+          allow(CheckStatus).to receive(:new).and_return(decorator = double(:decorator2, :call => nil, :success? => true, :response => response))
         end
 
         it 'should fail the test run' do
@@ -161,7 +224,7 @@ describe TestRunWorker do
           before do
             perform
 
-            allow(@klass).to receive(:new).and_return(decorator = double(:decorator, :call => true))
+            allow(@klass).to receive(:new).and_return(decorator = double(:decorator3, :call => nil, :success? => true, :response => response))
           end
 
           it 'should notify success' do

@@ -14,8 +14,16 @@ describe CheckNoop do
   describe '#call' do
     let(:call) { subject.call('anything', {:foo => 'bar'}) }
 
-    it 'should be true' do
-      expect(call).to eq(true)
+    it 'should be successful' do
+      call
+
+      expect(subject.success?).to eq(true)
+    end
+
+    it 'should have the response' do
+      call
+
+      expect(subject.response).to eq('anything')
     end
   end
 end

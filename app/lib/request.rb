@@ -1,5 +1,10 @@
 class Request
   def self.run(test)
+    return run_api(test) if test.style == 'api'
+    return run_browser(test) if test.style == 'browser'
+  end
+
+  def self.run_api(test)
     params_breed = %w(get head delete).include?(test.breed)
     data = JSON.parse(test.body) rescue {  }
     data_key = params_breed ? :params : :body
@@ -13,6 +18,13 @@ class Request
       data_key => data
     )
 
-    Response.new(request.run)
+    Response.from_api(request.run)
+  end
+
+  def self.run_browser(test)
+    session = Capybara::Session.new(:poltergeist)
+    session.visit(test.url)
+
+    Response.from_browser(session)
   end
 end

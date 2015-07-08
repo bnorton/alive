@@ -3,7 +3,7 @@ class Test < Model
     Time => { :at => :a },
     Integer => { :index => :i, :interval => :n, :check_index => :ci },
     Mongoid::Boolean => { :json => :j,  },
-    Enum => { :breed => %w(get post options head put patch delete) }
+    Enum => { :style => %w(api browser), :breed => %w(get post options head put patch delete) }
 
   attrs Time => { :last_at => :la }, Integer => { :last_code => :lc }, # Cache the most recent TestRun
     Float => { :last_duration => :ld }, Mongoid::Boolean => { :last_success => :ls }

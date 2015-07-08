@@ -4,6 +4,7 @@ class CheckStatus < Decorator
   end
 
   def call(response)
-    check.value == response.code.to_s
+    self.response = response
+    self.success = check.value == response.code.to_s
   end
 end
