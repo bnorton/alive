@@ -10,10 +10,11 @@ A Deployable Service™ that runs scheduled assertions on fetched HTTP content.
 
 - Fork bnorton/alive from GitHub to {{username}}
 - Rename all instances of `{{username}}` with yours
+- Create a heroku app with the multi buildpack (to support both the ruby and phantomjs buildpacks)
 
 ```bash
 git clone git@github.com:{{username}}/alive.git
-heroku create {{username}}-alive
+heroku create {{username}}-alive --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
 ```
 
 Required:
@@ -33,6 +34,7 @@ heroku config:set MONGODB_URL={{mongodb url}}
 heroku config:set REDIS_URL={{redis url}}
 heroku config:set SECRET_KEY_BASE=$(rake secret)
 heroku config:set SLACK_URL={{slack url}} SLACK_CHANNEL={{slack channel}}
+heroku config:set BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
 ```
 
 - Deploy your first version with `git push heroku master`
