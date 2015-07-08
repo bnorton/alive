@@ -24,6 +24,7 @@ Required:
 Optional:
 - Add a SendGrid account => `heroku addons:create sendgrid:starter`
 - Add a new Incoming WebHook integration to Slack and add the `SLACK_URL` and the `SLACK_CHANNEL` to the heroku config
+- Add a Bugsnag account => `heroku addons:create bugsnag`
 
 ```bash
 heroku config # and grab your mongodb url
@@ -31,6 +32,7 @@ heroku config:set RAILS_ENV=production RACK_ENV=production
 heroku config:set MONGODB_URL={{mongodb url}}
 heroku config:set REDIS_URL={{redis url}}
 heroku config:set SECRET_KEY_BASE=$(rake secret)
+heroku config:set SLACK_URL={{slack url}} SLACK_CHANNEL={{slack channel}}
 ```
 
 - Deploy your first version with `git push heroku master`
