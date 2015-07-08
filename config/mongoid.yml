@@ -22,4 +22,4 @@ production:
       uri: <%= ENV['MONGODB_URL'] %>
       options:
         min_pool_size: 5
-        max_pool_size: 50
+        max_pool_size: 200
