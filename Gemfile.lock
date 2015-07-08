@@ -1,17 +1,17 @@
 GIT
   remote: git://github.com/mongodb/mongo-ruby-driver.git
-  revision: bc55f8267582608b83bedfa08653601de8461b2b
+  revision: 3d0f4e315e0fa097698c13209ccc2e70bef79974
   specs:
-    mongo (2.1.0)
+    mongo (2.1.0.beta)
       bson (~> 3.0)
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: ed9b1c4b51d437c10b24bec199c4d4d7c18a0f76
+  revision: 507d7a794f6edd5f2b1a2b86c922340f3cf7d9c2
   specs:
-    mongoid (5.0.0)
+    mongoid (5.0.0.beta)
       activemodel (~> 4.0)
-      mongo (~> 2.1)
+      mongo (= 2.1.0.beta)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
 
@@ -61,7 +61,7 @@ GEM
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
-    bson (3.1.1)
+    bson (3.1.2)
     bugsnag (2.8.10)
       json (~> 1.7, >= 1.7.7)
     builder (3.2.2)
