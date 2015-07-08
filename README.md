@@ -29,12 +29,14 @@ Optional:
 
 ```bash
 heroku config # and grab your mongodb url
-heroku config:set RAILS_ENV=production RACK_ENV=production
-heroku config:set MONGODB_URL={{mongodb url}}
-heroku config:set REDIS_URL={{redis url}}
-heroku config:set SECRET_KEY_BASE=$(rake secret)
-heroku config:set SLACK_URL={{slack url}} SLACK_CHANNEL={{slack channel}}
-heroku config:set BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
+heroku config:set RAILS_ENV=production \
+  RACK_ENV=production \
+  MONGODB_URL={{mongodb url}} \
+  REDIS_URL={{redis url}} \
+  SECRET_KEY_BASE=$(rake secret) \
+  SLACK_URL={{slack url}} \
+  SLACK_CHANNEL={{slack channel}} \
+  BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
 ```
 
 - Deploy your first version with `git push heroku master`
