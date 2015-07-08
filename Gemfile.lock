@@ -62,6 +62,8 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
     bson (3.1.1)
+    bugsnag (2.8.10)
+      json (~> 1.7, >= 1.7.7)
     builder (3.2.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -227,6 +229,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
+  bugsnag
   capybara
   clockwork
   factory_girl

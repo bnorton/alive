@@ -10,6 +10,7 @@ gem 'puma'
 
 gem 'sidekiq'
 gem 'clockwork'
+gem 'bugsnag'
 
 gem 'typhoeus'
 
