@@ -11,3 +11,4 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 Capybara.current_driver = Capybara.javascript_driver = :poltergeist
+Capybara.run_server = false

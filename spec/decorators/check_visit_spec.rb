@@ -23,7 +23,7 @@ describe CheckVisit do
       allow(session).to receive(:visit)
 
       response
-      allow(Response).to receive(:from_browser).with(session).once.and_return(new_response)
+      allow(Response).to receive(:from_browser).with(session, duration: an_instance_of(Float)).once.and_return(new_response)
     end
 
     it 'should visit the page' do

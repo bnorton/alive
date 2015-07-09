@@ -17,16 +17,16 @@
       </div>
 
       <div class="form-group">
-        <label class="col-md-3 control-label" for="textinput">Response key</label>
+        <label class="col-md-3 control-label" for="textinput">Key</label>
         <div class="col-md-9">
-          <input id="key" name="key" type="text" value="<%= check.key %>" placeholder="Location or user.id" class="form-control input-md">
+          <input id="key" name="key" type="text" value="<%= check.key %>" placeholder="Location or user.id or Email" class="form-control input-md">
         </div>
       </div>
 
       <div class="form-group">
-        <label class="col-md-3 control-label" for="value">Response value</label>
+        <label class="col-md-3 control-label" for="value">Value</label>
         <div class="col-md-9">
-          <input id="value" name="value" type="text" value="<%= check.value %>" placeholder="https://alive.trychameleon.com/" class="form-control input-md" required="">
+          <input id="value" name="value" type="text" value="<%= check.value %>" placeholder="https://alive.trychameleon.com/ or 5 or test@alive.com" class="form-control input-md" required="">
         </div>
       </div>
 
@@ -45,19 +45,20 @@
 
 <script type="text/javascript">
   $(function() {
-    var $key = $('#key').closest('.form-group'),
-      keys = ['<%= Kind::Check::HEADER %>', '<%= Kind::Check::BODY %>'],
+    var $key = $('#key'),
+      $group = $key.closest('.form-group'),
+      keys = ['<%= Kind::Check::HEADER %>', '<%= Kind::Check::BODY %>', '<%= Kind::Check::FILL %>'],
       onChange = function() {
         var $sel = $(this).find('option:selected');
 
         if(keys.indexOf($sel.attr('value')) >= 0) {
-          $key.show();
+          $group.show();
         } else {
-          $key.hide();
+          $group.hide();
         }
       };
 
-    $('select').on('change', onChange);
+    $('#kind').on('change', onChange);
 
     onChange();
   });

@@ -5,6 +5,9 @@ class CheckBody < Decorator
 
   def call(response)
     self.response = response
+
+    return (self.success = response.raw.has_text?(/#{Regexp.escape(check.value)}/i)) if Capybara::Session === response.raw
+
     self.success = case body = response.body
     when String
       body[check.value.to_s].present?

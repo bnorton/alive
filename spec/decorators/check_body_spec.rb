@@ -69,7 +69,6 @@ describe CheckBody do
         end
       end
 
-
       describe 'for key paths' do
         [['code', '202'], ['user.id', '9'], ['user.name.first', 'John']].each do |(k, v)|
           describe "for #{k} = #{v}" do
@@ -95,6 +94,40 @@ describe CheckBody do
               expect(subject.success?).to eq(false)
             end
           end
+        end
+      end
+    end
+
+    describe 'for a capybara session' do
+      let(:session) { instance_double(Capybara::Session, :has_text? => true) }
+      let(:response) { Response.from_browser(session) }
+
+      before do
+        allow(Capybara::Session).to receive(:===).and_call_original
+        allow(Capybara::Session).to receive(:===).with(session).and_return(true)
+      end
+
+      it 'should query the session' do
+        expect(session).to receive(:has_text?) do |r|
+          expect(r).to eq(/foo\-bar/i)
+        end
+
+        call
+      end
+
+      it 'should be successful' do
+        call
+
+        expect(subject.success?).to eq(true)
+      end
+
+      describe 'when the text cant be found' do
+        let(:session) { instance_double(Capybara::Session, :has_text? => false) }
+
+        it 'should not be successful' do
+          call
+
+          expect(subject.success?).to eq(false)
         end
       end
     end

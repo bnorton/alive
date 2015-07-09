@@ -28,7 +28,7 @@ describe :tests, :js => true do
 
       within "#test-#{test2.id}" do
         find('.glyphicon-remove') # Failed
-        expect(page).to have_content('API Test 2')
+        expect(page).to have_content('Api Test 2')
         expect(page).to have_content('POST http://my-site.com every 15 minutes')
         expect(page).to have_content('501')
         expect(page).to have_content('1240ms')
@@ -68,9 +68,9 @@ describe :tests, :js => true do
     it 'shows a test' do
       visit '/tests'
 
-      click_link 'API Test 2'
+      click_link 'Api Test 2'
 
-      expect(page).to have_content('API Test 2')
+      expect(page).to have_content('Api Test 2')
       expect(current_url).to match(/tests\/#{test2.id}$/)
     end
 
@@ -170,12 +170,26 @@ describe :tests, :js => true do
   describe '#show' do
     let(:test) { create(:test, :user => user, :url => 'http://my-site.com', :last_code => 219, :last_duration => 204, :last_at => 12.hours.ago) }
 
-    it 'shows the test information' do
+    it 'shows the API test information' do
       visit "/tests/#{test.id}"
 
       should_be_on_the(:tests)
 
-      expect(page).to have_content('API Test 1')
+      expect(page).to have_content('Api Test')
+      expect(page).to have_content('GET http://my-site.com')
+      expect(page).to have_content('Status 219')
+      expect(page).to have_content('204ms')
+      expect(page).to have_content('12 hours ago')
+    end
+
+    it 'shows the Browser test information' do
+      test.update(:style => 'browser')
+
+      visit "/tests/#{test.id}"
+
+      should_be_on_the(:tests)
+
+      expect(page).to have_content('Browser Test')
       expect(page).to have_content('GET http://my-site.com')
       expect(page).to have_content('Status 219')
       expect(page).to have_content('204ms')
@@ -269,6 +283,7 @@ describe :tests, :js => true do
       fill_in 'name', :with => 'Test Name YAY'
       fill_in 'url', :with => 'https://example.com/'
       select 'OPTIONS', :from => 'breed'
+      select 'Browser', :from => 'style'
 
       click_button 'Save'
 
@@ -277,6 +292,7 @@ describe :tests, :js => true do
       test.reload
       expect(test.name).to eq('Test Name YAY')
       expect(test.url).to eq('https://example.com/')
+      expect(test.style).to eq('browser')
       expect(test.breed).to eq('options')
     end
   end

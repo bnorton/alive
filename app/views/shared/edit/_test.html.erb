@@ -14,6 +14,17 @@
         </div>
       </div>
 
+      <div class="form-group test-style">
+        <label class="col-md-3 control-label" for="style">Test Type</label>
+        <div class="col-md-9">
+          <select id="style" name="style" class="form-control">
+            <% Test::STYLE.each do |value| %>
+              <option value="<%= value %>"<%= test.style == value ? ' selected' : '' %>><%= value.titleize %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
       <div class="form-group">
         <label class="col-md-3 control-label" for="interval">Run every</label>
         <div class="col-md-9">
@@ -56,3 +67,24 @@
     </fieldset>
   </form>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    var $style = $('#style'),
+      $group = $('#breed').closest('.form-group'),
+      key = 'api',
+      onChange = function() {
+        var $sel = $style.find('option:selected');
+
+        if(key === $sel.attr('value')) {
+          $group.show();
+        } else {
+          $group.hide();
+        }
+      };
+
+    $style.on('change', onChange);
+
+    onChange();
+  });
+</script>

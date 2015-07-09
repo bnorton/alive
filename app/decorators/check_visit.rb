@@ -5,9 +5,10 @@ class CheckVisit < Decorator
 
   def call(response)
     session = response.raw
+    start = Time.now
     session.visit(check.value)
 
     self.success = session.status_code == 200
-    self.response = Response.from_browser(session)
+    self.response = Response.from_browser(session, duration: Time.now-start)
   end
 end

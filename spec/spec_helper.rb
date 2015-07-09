@@ -14,6 +14,7 @@ require 'mock_redis'
 Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f }
 
 change_driver = ->(name) { Capybara.current_driver = Capybara.javascript_driver = name }
+Capybara.run_server = true
 
 Rails.logger.level = Mongoid.logger.level = 4 unless /RubyMine/ === ENV['RUBYLIB']
 

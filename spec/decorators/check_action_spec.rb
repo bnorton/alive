@@ -24,7 +24,7 @@ describe CheckAction do
     end
 
     it 'should fill the input' do
-      expect(session).to receive(:click_link_or_button).with('something-special')
+      expect(session).to receive(:click_link_or_button).with('something-special', :match => :first)
 
       call
     end

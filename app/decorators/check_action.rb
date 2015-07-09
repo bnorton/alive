@@ -8,7 +8,7 @@ class CheckAction < Decorator
     self.response = response
     self.success = true
 
-    session.click_link_or_button(check.value)
+    session.click_link_or_button(check.value, :match => :first)
   rescue Capybara::ElementNotFound
     self.success = false
   end

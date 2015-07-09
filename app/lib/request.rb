@@ -22,9 +22,9 @@ class Request
   end
 
   def self.run_browser(test)
-    session = Poltergeist.new.session
+    session, start = Poltergeist.new.session, Time.now
     session.visit(test.url)
 
-    Response.from_browser(session)
+    Response.from_browser(session, duration: Time.now-start)
   end
 end

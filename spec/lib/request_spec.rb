@@ -129,6 +129,7 @@ describe Request do
       it 'should return the response' do
         expect(run.class).to eq(Response)
         expect(run.raw).to eq(session)
+        expect(run.duration).to be > 0.0
       end
     end
   end

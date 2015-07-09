@@ -2,7 +2,7 @@
   <div>
     <div class="test-top">
       <span class="glyphicon glyphicon-<%= test.last_success ? 'ok text-success' : 'remove text-danger' %>"></span>
-      <span class="test-title"><%= link_to (test.name || "API Test #{test.index}"), test_path(test) %></span>
+      <span class="test-title"><%= link_to (test.name || "#{test.style.titleize} Test #{test.index}"), test_path(test) %></span>
       <!-- RHS -->
 
       <div class="pull-right test-edit dropdown list-inline">

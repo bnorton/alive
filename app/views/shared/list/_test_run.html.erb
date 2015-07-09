@@ -14,6 +14,16 @@
       <span class="pull-right test-code label label-<%= test_run.failed_check_id ? 'danger' : 'success' %>">Status <%= test_run.code > 0 ? test_run.code : '-' %></span>
     </div>
   </div>
+  <div class="test-failed_check">
+  <% if test_run.failed_check_id %>
+    <ul class="test-check-items list-group">
+      <li id="check-<%= test_run.failed_check.id %>" class="list-group-item">
+        <span>Failing check: <%= test_run.failed_check.decorator.new(test_run.failed_check) %></span>
+        <span class="pull-right check-edit"><a href="<%= edit_check_path(test_run.failed_check) %>">Edit</a></span>
+      </li>
+    </ul>
+  <% end %>
+  </div>
   <div class="test-info">
     <% if test_run.headers.present? %>
       <div>
