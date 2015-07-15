@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'sign-up' => 'users#new'
-  resources :users, :only => [:create]
+  get 'settings' => 'users#show'
+  resources :users, :only => [:create, :update]
 
   get 'login' => 'sessions#new'
   get 'logout' => 'sessions#destroy'

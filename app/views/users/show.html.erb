@@ -1,0 +1,48 @@
+<div class="col-md-3"></div>
+<div class="panel panel-default col-md-6">
+  <fieldset>
+    <legend>Information</legend>
+  </fieldset>
+
+  <div class="form-group">
+    <div>API Key: <span><code><%= user.token %></code></span></div>
+    <div class="text-muted"><small>Your Key is used to make API calls from the client libraries to Alive.</small></div>
+  </div>
+
+  <form class="form-horizontal" method="post" action="<%= user_path(user) %>">
+    <fieldset>
+      <legend>Notifications</legend>
+
+      <% via = [('slack' if user.notify_slack), ('email' if user.notify_email)].compact %>
+      <% if via.any? %>
+      <div>Notifying via <%= via.to_sentence %> on change in status.</div>
+      <% else %>
+      <div>You will not be notified of failing tests.</div>
+      <% end %>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="notify_email">Notify by Email</label>
+        <div class="col-md-9">
+          <input id="notify_email" name="notify_email" type="checkbox" <%= 'checked ' if user.notify_email %>class="form-control input-md">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="notify_slack">Notify by Slack</label>
+        <div class="col-md-9">
+          <input id="notify_slack" name="notify_slack" type="checkbox" <%= 'checked ' if user.notify_slack %>class="form-control input-md">
+        </div>
+      </div>
+
+      <input type="hidden" name="_method" value="patch">
+      <%= csrf_form_tags %>
+
+      <div class="form-group pull-right">
+        <label class="control-label" for="update"></label>
+        <div class="col-md-1">
+          <button id="update" name="update" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

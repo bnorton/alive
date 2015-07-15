@@ -1,4 +1,5 @@
 class Dashboard < Application
-  def index
-  end
+
+  html :index
+
 end

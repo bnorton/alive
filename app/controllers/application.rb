@@ -9,6 +9,10 @@ class Application < ActionController::Base
 
   helper_method :cookie, :user
 
+  def self.html(*names)
+    names.each {|name| define_method name, -> {} }
+  end
+
   def set_cookie(name, value)
     cookies.encrypted["user:#{name}"] = value.to_s
   end

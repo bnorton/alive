@@ -1,8 +1,7 @@
 class Sessions < Application
   skip_before_filter :authenticate!
 
-  def new
-  end
+  html :new
 
   def create
     user = User.where(:email => params[:email]).first

@@ -3,6 +3,8 @@ class User < Model
     Integer => { :test_index => :ti },
     Mongoid::Boolean => { :notify_email => :ne, :notify_slack => :ns }
 
+  allow :notify_email, :notify_slack
+
   validates :email, :password, :presence => true
 
   has_many :tests, :test_runs

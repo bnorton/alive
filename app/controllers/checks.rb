@@ -2,16 +2,12 @@ class Checks < Application
   before_action :load_test, :only => [:new, :create]
   before_action :load_model, :only => [:edit, :update]
 
-  def new
-  end
+  html :new, :edit
 
   def create
     @check = @model.checks.new
 
     update
-  end
-
-  def edit
   end
 
   def update

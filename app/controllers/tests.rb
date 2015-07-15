@@ -1,23 +1,16 @@
 class Tests < Application
   before_action :load_test, :only => [:show, :edit, :update]
 
+  html :new, :show, :edit
+
   def index
     @tests = user.tests
-  end
-
-  def new
   end
 
   def create
     @model = user.tests.new
 
     update
-  end
-
-  def show
-  end
-
-  def edit
   end
 
   def update
