@@ -2,7 +2,8 @@
 A Deployable Service™ that runs scheduled assertions on fetched HTTP content.
 
 [![Build Status](https://semaphoreci.com/api/v1/projects/78e05d06-ff0e-49b8-80af-eef7f10078a4/468309/badge.svg)](https://semaphoreci.com/bnorton/alive)  
-[![Circle CI](https://circleci.com/gh/bnorton/alive.svg?style=svg)](https://circleci.com/gh/bnorton/alive)
+[![Circle CI](https://circleci.com/gh/bnorton/alive.svg?style=svg)](https://circleci.com/gh/bnorton/alive)  
+[![Code Climate](https://codeclimate.com/github/bnorton/alive/badges/gpa.svg)](https://codeclimate.com/github/bnorton/alive)  
 <!-- [![Build Status](https://semaphoreci.com/api/v1/projects/{{semaphoreci project id}}/badge.svg)](https://semaphoreci.com/{{username}}/alive) -->
 <!-- [![Circle CI](https://circleci.com/gh/{{username}}/alive.svg?style=svg)](https://circleci.com/gh/{{username}}/alive) -->
 
