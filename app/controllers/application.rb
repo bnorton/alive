@@ -14,11 +14,11 @@ class Application < ActionController::Base
   end
 
   def set_cookie(name, value)
-    cookies.encrypted["user:#{name}"] = value.to_s
+    cookies.encrypted["user-#{name}"] = value.to_s
   end
 
   def cookie(name)
-    cookies.encrypted["user:#{name}"] || headers["x-user-#{name}"]
+    cookies.encrypted["user-#{name}"] || headers["x-user-#{name}"]
   end
 
   def user
