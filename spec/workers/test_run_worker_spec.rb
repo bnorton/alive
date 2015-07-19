@@ -3,6 +3,8 @@ require 'spec_helper'
 describe TestRunWorker do
   let(:test) { create(:test) }
   let(:test_run) { create(:test_run, :test => test) }
+  let(:hook_enabled) { create(:hook, :test => test, :url => "http://foo.bar/hook", :enabled=>true, :include_response => true) }
+  let(:hook_disabled) { create(:hook, :test => test, :url => "http://foo.bar/hook", :enabled=>false, :include_response => true) }
   let!(:response) { Response.from_api(Typhoeus::Response.new) }
 
   let(:perform) { subject.perform(test_run) }
@@ -78,6 +80,12 @@ describe TestRunWorker do
       perform
     end
 
+    it 'should not send webhook' do
+      expect(WebHook).not_to receive(:run)
+
+      perform
+    end
+
     describe 'when there are checks' do
       let!(:decorator) { double(:decorator, :call => true, :success? => true, :response => response) }
       let!(:checks) { [
@@ -123,6 +131,16 @@ describe TestRunWorker do
         expect(decorator).to receive(:call).with(response)
         expect(decorator).to receive(:success?).and_return(true)
 
+        perform
+      end
+
+      it 'should send enabled WebHook' do
+        expect(WebHook).to receive(:run).with(hook_enabled, test_run)
+        perform
+      end
+
+      it 'should send not send disabled WebHook' do
+        expect(WebHook).not_to receive(:run).with(hook_disabled, anything)
         perform
       end
 
@@ -235,6 +253,7 @@ describe TestRunWorker do
 
             subject.perform(test_run)
           end
+
         end
       end
     end

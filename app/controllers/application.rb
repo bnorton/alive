@@ -41,6 +41,14 @@ class Application < ActionController::Base
     else
       redirect_to url_for(:controller => @model.class.name.underscore.pluralize, :action => 'show', :id => @model.id)
     end
-
   end
+
+  #converts checkboxes in params to boolean values
+  def parse_checkboxes(params, *keys)
+    keys.each do |v|
+      params[v.to_sym] = params.key?(v.to_sym) && !params[v.to_sym].empty? ? true : false
+    end
+    params
+  end
+
 end

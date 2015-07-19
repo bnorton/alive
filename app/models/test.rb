@@ -13,7 +13,7 @@ class Test < Model
   validates :user_id, :url, :presence => true
 
   belongs_to :user
-  has_many :checks, :test_runs
+  has_many :checks, :hooks, :test_runs
 
   private
 

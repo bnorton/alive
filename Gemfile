@@ -15,6 +15,7 @@ gem 'bugsnag'
 gem 'typhoeus'
 gem 'capybara'
 gem 'poltergeist'
+gem 'oj'
 
 gem 'slack-notifier'
 # gem 'hookly', '~> 0.9'

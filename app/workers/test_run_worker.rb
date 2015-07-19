@@ -22,5 +22,10 @@ class TestRunWorker < Worker
     elsif last_failed
       Notify.completed(:passed, test_run)
     end
+
+    test.hooks.where(enabled:true).each do |hook|
+      WebHook.run(hook,test_run)
+    end
+
   end
 end
