@@ -16,9 +16,8 @@ describe Hooks do
   end
 
   describe '#create' do
-    hook_name = 'Test Hook Name'
-    hook_url = 'http://www.example.com'
-
+    let(:hook_name) {'Test Hook Name'}
+    let(:hook_url) { 'http://www.example.com' }
     let(:options) { { :url => hook_url, :name => hook_name, :include_response => "on" } }
     let(:response) { post :create, :test_id => test.id, **options }
 
@@ -61,10 +60,8 @@ describe Hooks do
   end
 
   describe '#update' do
-
-    hook_name = 'Edit Test Hook Name'
-    hook_url = 'http://edit.example.com'
-
+    let(:hook_name) {'Test Hook Name'}
+    let(:hook_url) { 'http://www.example.com' }
     let(:options) { { :url => hook_url, :name => hook_name, :include_response => "on" } }
     let(:response) { patch :update, :id => hook.id, **options }
 

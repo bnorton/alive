@@ -6,6 +6,8 @@ class TestRun < Model
 
   validates :user_id, :test_id, :presence => true
 
+  allow :code, :run_at, :duration, :failed_check_id, :headers, :body
+
   belongs_to :user, :test
   belongs_to :failed_check, :class_name => 'Check'
 

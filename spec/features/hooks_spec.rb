@@ -8,6 +8,8 @@ describe :hooks, :js => true do
   describe '#create' do
     let!(:test) { create(:test, :user => user) }
     let(:hook) { create(:hook, :test => test) }
+    let(:hook_name) {'Test Hook Name'}
+    let(:hook_url) { 'http://www.example.com' }
 
     it 'creates the hook' do
       visit "/tests/#{test.id}/hooks/new"
@@ -15,9 +17,6 @@ describe :hooks, :js => true do
       should_be_on_the(:'hooks/new')
 
       expect(page).to have_content('Create WebHook')
-
-      hook_name = 'Test Hook Name'
-      hook_url = 'http://www.example.com'
 
       fill_in 'name', :with => hook_name
       fill_in 'url', :with => hook_url
@@ -40,6 +39,8 @@ describe :hooks, :js => true do
   describe '#edit' do
     let(:test) { create(:test, :user => user) }
     let(:hook) { create(:hook, :test => test) }
+    let(:hook_name) {'Test Hook Name'}
+    let(:hook_url) { 'http://www.example.com' }
 
     it 'updates the hook' do
       visit "/hooks/#{hook.id}/edit"
@@ -47,9 +48,6 @@ describe :hooks, :js => true do
       should_be_on_the(:edit)
 
       expect(page).to have_content('Update WebHook')
-
-      hook_name = 'Edited Test Hook Name'
-      hook_url = 'http://edit.example.com'
 
       fill_in 'name', :with => hook_name
       fill_in 'url', :with => hook_url
