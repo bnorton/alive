@@ -252,6 +252,3 @@ DEPENDENCIES
   typhoeus
   uglifier
   webmock
-
-BUNDLED WITH
-   1.10.5

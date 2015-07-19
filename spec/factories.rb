@@ -18,4 +18,11 @@ FactoryGirl.define do
   factory :check do
     association(:test)
   end
+
+  factory :hook do
+    association(:test)
+    url "https://www.example.com/test"
+    name "A Hook Name"
+  end
+
 end

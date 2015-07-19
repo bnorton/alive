@@ -1,0 +1,46 @@
+<div class="col-md-3"></div>
+<div class="panel panel-default col-md-6">
+  <% action = hook.persisted? ? url_for(:controller => 'hooks', :action => 'update', :id => @hook.id) : url_for(:controller => 'hooks', :action => 'create') %>
+  <form class="form-horizontal" method="post" action="<%= action %>">
+    <fieldset>
+      <legend><%= hook.persisted? ? 'Update' : 'Create' %> WebHook</legend>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="hook-name">Name</label>
+        <div class="col-md-9">
+          <input id="hook-name" name="name" type="text" value="<%= hook.name %>" placeholder="Name to describe this WebHook" class="form-control input-md" required="">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="hook-url">URL</label>
+        <div class="col-md-9">
+          <input id="hook-url" name="url" type="text" value="<%= hook.url %>" placeholder="URL of WebHook" class="form-control input-md" required="">
+        </div>
+      </div>
+
+      <div class="checkbox">
+        <label class="col-md-9 col-md-offset-3">
+          <input name="include_response" type="checkbox"<%= hook.include_response ? ' checked=""' : '' %>> Include Full Response Data (header / body)
+        </label>
+      </div>
+
+      <div class="checkbox">
+        <label class="col-md-9 col-md-offset-3">
+          <input name="enabled" type="checkbox"<%= hook.enabled ? ' checked=""' : '' %>> Enabled
+        </label>
+      </div>
+
+      <input type="hidden" name="_method" value="<%= hook.persisted? ? 'patch' : 'post' %>">
+      <%= csrf_form_tags %>
+
+      <div class="form-group pull-right">
+        <label class="control-label" for="save"></label>
+        <div class="col-md-1">
+          <button id="save" name="save" class="btn btn-primary"><%= hook.persisted? ? 'Save' : 'Create' %></button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+

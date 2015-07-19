@@ -52,18 +52,41 @@
       </div>
     <% end %>
   </div>
-  <% checks = test.checks.to_a %>
-  <a class="btn test-toggle test-checks-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-checks">Checks (<%= checks.size %>) <span class="caret"></span></a>
-  <a class="btn test-toggle test-checks-new" href="<%= new_test_check_path(test) %>"><span class="glyphicon glyphicon-plus"></span><span>Add a Check</span></a>
 
-  <div class="test-checks collapse in">
-    <ul class="test-check-items list-group">
-      <% checks.each do |check| %>
-        <li id="check-<%= check.id %>" class="list-group-item">
-          <span><%= check.decorator.new(check) %></span>
-          <span class="pull-right check-edit"><a href="<%= edit_check_path(check) %>">Edit</a></span>
-        </li>
-      <% end %>
-    </ul>
+  <div class="test-checks-list">
+    <% checks = test.checks.to_a %>
+    <a class="btn test-toggle test-checks-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-checks">Checks (<%= checks.size %>) <span class="caret"></span></a>
+    <a class="btn test-toggle test-checks-new" href="<%= new_test_check_path(test) %>"><span class="glyphicon glyphicon-plus"></span><span>Add a Check</span></a>
+
+    <div class="test-checks collapse in">
+      <ul class="test-check-items list-group">
+        <% checks.each do |check| %>
+          <li id="check-<%= check.id %>" class="list-group-item">
+            <span><%= check.decorator.new(check) %></span>
+            <span class="pull-right check-edit"><a href="<%= edit_check_path(check) %>">Edit</a></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
+
+  <div class="test-hooks-list">
+    <% hooks = test.hooks.to_a %>
+    <a class="btn test-toggle test-hooks-toggle" data-toggle="collapse" data-target="#test-<%= test.id %> .test-hooks">WebHooks (<%= hooks.size %>) <span class="caret"></span></a>
+    <a class="btn test-toggle test-hooks-new" href="<%= new_test_hook_path(test) %>"><span class="glyphicon glyphicon-plus"></span><span>Add a WebHook</span></a>
+
+    <div class="test-hooks collapse">
+      <ul class="test-hook-items list-group">
+        <% hooks.each do |hook| %>
+          <li id="hook-<%= hook.id %>" class="list-group-item">
+            <span><%= hook.name %></span>
+            <span class="label label-<%= hook.enabled ? 'success' : 'danger' %>"><%= hook.enabled ? 'Enabled' : 'Disabled' %></span>
+            <span class="pull-right hook-edit"><a href="<%= edit_hook_path(hook) %>">Edit</a></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+
 </li>
